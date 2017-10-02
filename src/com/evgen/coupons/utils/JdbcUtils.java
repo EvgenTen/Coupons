@@ -10,13 +10,13 @@ import java.sql.SQLException;
 
 public class JdbcUtils  {
 
-	  private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/CouponsProjectDB?useSSL=false";
-    //  private static final String DB_URL = "jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11197313?useSSL=false";
-//    private static final String DB_USERNAME = "sql11197313";
-//    private static final String DB_PASSWORD = "zvlF1ehgCt";
-    private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "12345";
+    private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
+//    private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/CouponsProjectDB?useSSL=false";
+    private static final String DB_URL = "jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11197313?useSSL=false";
+    private static final String DB_USERNAME = "sql11197313";
+    private static final String DB_PASSWORD = "zvlF1ehgCt";
+//    private static final String DB_USERNAME = "root";
+//    private static final String DB_PASSWORD = "12345";
 	static {
 		try {
 			 Class.forName(DB_DRIVER);

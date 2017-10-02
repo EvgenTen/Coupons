@@ -18,30 +18,30 @@ public class Domain {
 	    	CompanyDao companyDao = new CompanyDao();
 	    	////5
 //	    	Coupon couponAdd = new Coupon();
-//	    	couponAdd.setId(25);
-//			couponAdd.setTitle("Coupon from 25");
+//	    	couponAdd.setId(34);
+//			couponAdd.setTitle("Coupon from 233");
 //			couponAdd.setStartDate("15.01.2018");
 //			couponAdd.setEndDate("25.02.2018");
-//			couponAdd.setAmount(11);
-//			couponAdd.setPrice(9);
-//			couponAdd.setType(CouponType.TRAVELLING);
+//			couponAdd.setAmount(122);
+//			couponAdd.setPrice(12);
+//			couponAdd.setType(CouponType.CARS);
 //			couponAdd.setMessage("phpmyadmin");
 //			couponAdd.setImage("IMAGE");
-//			couponAdd.setCompanyId(3);
+//			couponAdd.setCompanyId(2);
 //			couponsDao.couponCreate(couponAdd);
 	    	
 	    	Company com = new Company();
-	   // 	com.setId(10);
-//	    	com.setCompanyName("Zara");
-//	    	com.setEmail("email@mail.ru");
-//	    	com.setPassword("Evra12");
-//	    	companyDao.companyCreate(com);
+	  	com.setId(2);
+	    	com.setCompanyName("Zaraq3");
+	    	com.setEmail("email@mail.ru");
+	    	com.setPassword("Evra12");
+	    	companyDao.companyCreate(com);
 	    	
-	     	Customer cust = new Customer();
-	  //   	cust.setId(5);
-	    	cust.setCustomerName("Mark");
-	    	cust.setPassword("504624");
-	    	customerDao.customerCreate(cust);
+//	     	Customer cust = new Customer();
+//	     	cust.setId(5);
+//	    	cust.setCustomerName("Mark");
+//	    	cust.setPassword("504624");
+//	    	customerDao.customerCreate(cust);
 
 	    
 	//_________________________________________________________________
@@ -61,12 +61,12 @@ public class Domain {
                 System.out.println(comp);
             }
            
-//            List<Coupon> couponList = couponsDao.getAllCoupons();
-//            //Thread.sleep(10000);
-//	        System.out.println("Coupons list:");
-//            for (Coupon co : couponList) {   	
-//                System.out.println(co);
-//            }
+            List<Coupon> couponList = couponsDao.getAllCoupons();
+            //Thread.sleep(10000);
+	        System.out.println("Coupons list:");
+            for (Coupon co : couponList) {   	
+                System.out.println(co);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
