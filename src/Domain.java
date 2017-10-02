@@ -17,18 +17,18 @@ public class Domain {
 	    	CouponsDao couponsDao = new CouponsDao();
 	    	CompanyDao companyDao = new CompanyDao();
 	    	////5
-	    	Coupon couponAdd = new Coupon();
-	    	couponAdd.setId(20);
-			couponAdd.setTitle("Coupon from yad2");
-			couponAdd.setStartDate("15.01.2018");
-			couponAdd.setEndDate("25.02.2018");
-			couponAdd.setAmount(11);
-			couponAdd.setPrice(20);
-			couponAdd.setType(CouponType.RESTOURANTS);
-			couponAdd.setMessage("yes");
-			couponAdd.setImage("IMAGE");
-			couponAdd.setCompanyId(5);
-			couponsDao.couponCreate(couponAdd);
+//	    	Coupon couponAdd = new Coupon();
+//	    	couponAdd.setId(23);
+//			couponAdd.setTitle("Coupon from uman");
+//			couponAdd.setStartDate("15.01.2018");
+//			couponAdd.setEndDate("25.02.2018");
+//			couponAdd.setAmount(11);
+//			couponAdd.setPrice(20);
+//			couponAdd.setType(CouponType.FOOD);
+//			couponAdd.setMessage("yes");
+//			couponAdd.setImage("IMAGE");
+//			couponAdd.setCompanyId(34);
+//			couponsDao.couponCreate(couponAdd);
 	    	
 //	    	Customer cust = new Customer();
 //	    	cust.setCustomerName("Udo");
@@ -37,7 +37,7 @@ public class Domain {
 	    
 	//_________________________________________________________________
 		    
-//			try {
+			try {
 //	        	
 //	       
 //            List<Customer> customerList = customerDao.getAllCustomers();
@@ -50,22 +50,23 @@ public class Domain {
 //            for (Company comp : companyList) {
 //                System.out.println(comp);
 //            }
-//           
-//            List<Coupon> couponList = couponsDao.getAllCoupons();
-//	        System.out.println("Coupons list:");
-//            for (Coupon co : couponList) {
-//                System.out.println(co);
-//            }
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//	    	
-	    
-//            System.out.println("Couponim List:");
-//            for (CouponType coup : CouponType.values()) {
-//                System.out.println(coup.getName());
-//	    }
+           
+            List<Coupon> couponList = couponsDao.getAllCoupons();
+            //Thread.sleep(10000);
+	        System.out.println("Coupons list:");
+            for (Coupon co : couponList) {
+                System.out.println(co);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//////	    	
+//	    
+////            System.out.println("Couponim List:");
+////            for (CouponType coup : CouponType.values()) {
+////                System.out.println(coup.getName());
+////	    }
 }
 	    
 }
