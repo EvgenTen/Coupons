@@ -16,7 +16,7 @@ public class Domain {
 	    	CustomerDao customerDao = new CustomerDao();
 	    	CouponsDao couponsDao = new CouponsDao();
 	    	CompanyDao companyDao = new CompanyDao();
-	    	//
+	    	////
 	    	Coupon couponAdd = new Coupon();
 	    	couponAdd.setId(20);
 			couponAdd.setTitle("Coupon from yad2");
