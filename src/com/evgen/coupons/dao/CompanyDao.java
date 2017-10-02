@@ -45,6 +45,7 @@ public class CompanyDao extends JdbcUtils implements ICompanyDao {
 		String query = "SELECT ID, COMP_NAME, PASSWORD, EMAIL " + "FROM COMPANY";
 
 		try {
+			connection = getConnection();
 			statement = connection.prepareStatement(query);
 			resultSet = statement.executeQuery(query);
 

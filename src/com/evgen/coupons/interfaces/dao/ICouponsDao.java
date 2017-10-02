@@ -19,10 +19,10 @@ public interface ICouponsDao {
 	 
 	 Coupon couponGetById(Long id)throws ApplicationException;
 	 
-	 void getCouponsByType(CouponType couponType) throws ApplicationException;
+	 Coupon couponGetByType(CouponType couponType) throws ApplicationException;
 	 
-	 void getCouponsByCompany(long companyId) throws ApplicationException;
+	 Coupon couponGetByCompany(long companyId) throws ApplicationException;
 	 
-	 void getCouponsByCustomer(long customerId) throws ApplicationException;
+	 Coupon couponGetByCustomer(long customerId) throws ApplicationException;
 	
 }

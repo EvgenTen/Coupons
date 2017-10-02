@@ -23,6 +23,7 @@ public class CustomerDao extends JdbcUtils implements iCustomerDao {
 		String query = "INSERT INTO CUSTOMER (ID, CUST_NAME, PASSWORD) " + "VALUES(?, ?, ?)";
 
 		try {
+			connection = getConnection();
 			statement = connection.prepareStatement(query);
 
 			statement.setLong(1, customer.getId());
@@ -45,8 +46,8 @@ public class CustomerDao extends JdbcUtils implements iCustomerDao {
 		String query = "SELECT ID, CUST_NAME, PASSWORD " + "FROM CUSTOMER";
 
 		try {
+			connection = getConnection();
 			statement = connection.prepareStatement(query);
-
 			resultSet = statement.executeQuery(query);
 
 			while (resultSet.next()) {
@@ -72,6 +73,7 @@ public class CustomerDao extends JdbcUtils implements iCustomerDao {
 
 		Customer customer = new Customer();
 		try {
+			connection = getConnection();
 			statement = connection.prepareStatement(query);
 			statement.setLong(1, id);
 
@@ -96,6 +98,7 @@ public class CustomerDao extends JdbcUtils implements iCustomerDao {
 		String query = "UPDATE CUSTOMER SET CUST_NAME=?, PASSWORD=? WHERE ID=?";
 
 		try {
+			connection = getConnection();
 			statement = connection.prepareStatement(query);
 			
 			statement.setString(1, customer.getCustomerName());
@@ -113,13 +116,12 @@ public class CustomerDao extends JdbcUtils implements iCustomerDao {
 
 	@Override
 	public void customerDeleteById(Long id) throws ApplicationException {
-		System.out.println(id + "  1");
-		//Customer customer = new Customer();
 		String query = "DELETE FROM CUSTOMER WHERE ID=?";
 		
 		try {
+			connection = getConnection();
 			statement = connection.prepareStatement(query);
-		//	System.out.println(customer.getId());
+	
 			statement.setLong(1, id);
 
 			statement.executeUpdate();

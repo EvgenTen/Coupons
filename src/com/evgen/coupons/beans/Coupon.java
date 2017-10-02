@@ -2,7 +2,6 @@ package com.evgen.coupons.beans;
 
 import com.evgen.coupons.enums.CouponType;
 
-//import com.evgen.coupons.enums.CouponType;
 
 public class Coupon {
 
