@@ -26,7 +26,7 @@ public class CustomerDao extends JdbcUtils implements iCustomerDao {
 			connection = getConnection();
 			statement = connection.prepareStatement(query);
 
-			statement.setLong(1, customer.getId());
+			//statement.setLong(1, customer.getId());
 			statement.setString(2, customer.getCustomerName());
 			statement.setString(3, customer.getPassword());
 

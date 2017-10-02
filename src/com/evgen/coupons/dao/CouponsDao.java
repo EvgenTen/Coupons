@@ -129,7 +129,9 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 			statement.setString(2, coupon.getStartDate());
 			statement.setString(3, coupon.getEndDate());
 			statement.setInt(4, coupon.getAmount());
-			statement.setString(6, coupon.getType().name().trim());
+			
+			String type = coupon.getType().name();
+			statement.setString(6, type.trim());
 			statement.setString(5, coupon.getMessage());
 			statement.setFloat(6, coupon.getPrice());
 			statement.setString(7, coupon.getImage());
