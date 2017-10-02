@@ -30,11 +30,18 @@ public class Domain {
 //			couponAdd.setCompanyId(3);
 //			couponsDao.couponCreate(couponAdd);
 	    	
+	    	Company com = new Company();
+	   // 	com.setId(10);
+//	    	com.setCompanyName("Zara");
+//	    	com.setEmail("email@mail.ru");
+//	    	com.setPassword("Evra12");
+//	    	companyDao.companyCreate(com);
 	    	
 	     	Customer cust = new Customer();
-	    	
+	  //   	cust.setId(5);
 	    	cust.setCustomerName("Mark");
 	    	cust.setPassword("504624");
+	    	customerDao.customerCreate(cust);
 
 	    
 	//_________________________________________________________________
@@ -48,11 +55,11 @@ public class Domain {
                 System.out.println(c);
             }
 //            
-//            List<Company> companyList = companyDao.getAllCompanies();
-//            System.out.println("Company List:");
-//            for (Company comp : companyList) {
-//                System.out.println(comp);
-//            }
+            List<Company> companyList = companyDao.getAllCompanies();
+            System.out.println("Company List:");
+            for (Company comp : companyList) {
+                System.out.println(comp);
+            }
            
 //            List<Coupon> couponList = couponsDao.getAllCoupons();
 //            //Thread.sleep(10000);
