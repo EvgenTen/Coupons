@@ -24,7 +24,7 @@ public class Domain {
 //			couponAdd.setStartDate("15.01.2018");
 //			couponAdd.setEndDate("25.02.2018");
 //			couponAdd.setAmount(122);
-//			couponAdd.setPrice(12);
+//			couponAdd.setPrice(12.5f);
 //			couponAdd.setType(CouponType.TRAVELLING);
 //			couponAdd.setMessage("phpmyadmin");
 //			couponAdd.setImage("IMAGE");
@@ -43,9 +43,27 @@ public class Domain {
 //	    	cust.setCustomerName("Mark");
 //	    	cust.setPassword("504624");
 //	    	customerDao.customerCreate(cust);
+	    	
+//_________________________________________________________________
 
-	    
-	//_________________________________________________________________
+//Coupon Update:
+	    	Coupon couponUpd = new Coupon();
+	    			//("Glida Barvazzi", "23.05.2018", "23.06.2018", 100, "Very Tasty", 9.99f, "BIG IMAGE", 11, CouponType.CAMPING);
+	    	
+			couponUpd.setTitle("Glida Barvazzi");
+			couponUpd.setStartDate("15.01.2018");
+			couponUpd.setEndDate("23.06.2018");
+			couponUpd.setAmount(100);
+			couponUpd.setPrice(12.5f);
+			couponUpd.setType(CouponType.CAMPING);
+			couponUpd.setMessage("phpmyadmin");
+			couponUpd.setImage("IMAGE");
+			couponUpd.setCompanyId(7);
+		//	couponsDao.couponCreate(couponUpd);
+	    	couponUpd.setId(3);
+	    	couponsDao.couponUpdate(couponUpd);
+	    	
+	    	//	    	________________________________
 		    
 			try {
        
@@ -73,12 +91,18 @@ public class Domain {
 //	            for (Coupon co : couponList) {   	
 //	                System.out.println(co);
 //	            }
-//Get All by TYPE:	
-	            List<Coupon> couponList = couponsDao.couponGetByType(CouponType.TRAVELLING);
-		        System.out.println("Coupons list:");
-	            for (Coupon co : couponList) {   	
-	                System.out.println(co);
-	            }
+//Get Coupon by TYPE:	
+//	            List<Coupon> couponList = couponsDao.couponGetByType(CouponType.TRAVELLING);
+//		        System.out.println("Coupons list:");
+//	            for (Coupon co : couponList) {   	
+//	                System.out.println(co);
+//	            }
+//Get Coupon by Customer:	
+//	            List<Coupon> couponList = couponsDao.couponGetByCustomer(1);
+//		        System.out.println("Coupons list:");
+//	            for (Coupon co : couponList) {   	
+//	                System.out.println(co);
+//	            }
 //				________________________________
 // DELETE:      
 //           Coupon coupon = new Coupon();

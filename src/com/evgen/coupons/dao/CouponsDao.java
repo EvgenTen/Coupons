@@ -35,7 +35,6 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 			statement.setString(4, coupon.getEndDate());
 			statement.setInt(5, coupon.getAmount());
 			statement.setString(6, coupon.getType().name());
-			// statement.setString(6, coupon.getType().name().trim());
 			statement.setString(7, coupon.getMessage());
 			statement.setFloat(8, coupon.getPrice());
 			statement.setString(9, coupon.getImage());
@@ -119,7 +118,7 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 	@Override
 	public void couponUpdate(Coupon coupon) throws ApplicationException {
 
-		String query = "UPDATE COUPON SET TITLE, START_DATE, END_DATE, AMOUNT, TYPE, MESSAGE, PRICE, IMAGE, COMP_ID WHERE ID=?";
+		String query = "UPDATE COUPON SET TITLE, START_DATE, END_DATE, AMOUNT, TYPE, MESSAGE, PRICE, IMAGE, COMP_ID " + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)" + "WHERE ID=?";
 
 		try {
 			connection = getConnection();
@@ -131,9 +130,9 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 			statement.setInt(4, coupon.getAmount());
 			statement.setString(5, coupon.getMessage());
 			statement.setString(6, coupon.getType().name());
-			statement.setFloat(6, coupon.getPrice());
-			statement.setString(7, coupon.getImage());
-			statement.setLong(8, coupon.getCompanyId());
+			statement.setFloat(7, coupon.getPrice());
+			statement.setString(8, coupon.getImage());
+			statement.setLong(9, coupon.getCompanyId());
 			statement.executeUpdate();
 
 		} catch (Exception e) {
@@ -147,7 +146,6 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 	@Override
 	public void couponDeleteById(Coupon coupon) throws ApplicationException {
 
-		// Coupon coupon = new Coupon();
 		String query = "DELETE FROM COUPON WHERE ID=?";
 
 		try {
@@ -229,10 +227,11 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 	@Override
 	public List<Coupon> couponGetByCustomer(long customerId) throws ApplicationException {
 		List<Coupon> couponGetByCustomer = new ArrayList<>();
-		String query = "SELECT * FROM COUPON WHERE COMP_ID=" + customerId;
+		String query = "SELECT * FROM COUPON WHERE ID IN (SELECT COUPON_ID FROM CUSTOMER_COUPON WHERE CUST_ID =?)" ;
 		try {
 			connection = getConnection();
 			statement = connection.prepareStatement(query);
+			statement.setLong(1, customerId);
 			resultSet = statement.executeQuery();
 
 			while (resultSet.next()) {

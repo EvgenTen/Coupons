@@ -33,6 +33,19 @@ public class Coupon {
 		this.companyId = companyId;
 		this.type = type;
 	}
+	public Coupon(String title, String startDate, String endDate, int amount, String message, float price,
+			String image, long companyId, CouponType type) {
+		super();
+		this.title = title;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.amount = amount;
+		this.message = message;
+		this.price = price;
+		this.image = image;
+		this.companyId = companyId;
+		this.type = type;
+	}
 	public long getId() {
 		return id;
 	}
