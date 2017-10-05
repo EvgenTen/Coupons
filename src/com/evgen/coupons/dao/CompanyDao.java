@@ -19,15 +19,16 @@ public class CompanyDao extends JdbcUtils implements ICompanyDao {
 	@Override
 	public void companyCreate(Company company) throws ApplicationException {
 
-		String query = "INSERT INTO COMPANY (COMP_NAME, PASSWORD, EMAIL) " + "VALUES(?, ?, ?)";
+		String query = "INSERT INTO COMPANY (ID, COMP_NAME, PASSWORD, EMAIL) " + "VALUES(?, ?, ?, ?)";
 
 		try {
 			connection = getConnection();
 			statement = connection.prepareStatement(query);
-
-			statement.setString(1, company.getCompanyName());
-			statement.setString(2, company.getPassword());
-			statement.setString(3, company.getEmail());
+			
+			statement.setLong  (1, company.getId());
+			statement.setString(2, company.getCompanyName());
+			statement.setString(3, company.getPassword());
+			statement.setString(4, company.getEmail());
 
 			statement.executeUpdate();
 		} catch (Exception e) {
@@ -111,15 +112,14 @@ public class CompanyDao extends JdbcUtils implements ICompanyDao {
 	}
 
 	@Override
-	public void companyDelete(Long id) throws ApplicationException {
-		Company company = new Company();
+	public void companyDeleteById(Company company) throws ApplicationException {
+		
 		String query = "DELETE FROM COMPANY WHERE ID=?";
 
 		try {
+			connection = getConnection();
 			statement = connection.prepareStatement(query);
-
 			statement.setLong(1, company.getId());
-
 			statement.executeUpdate();
 		} catch (Exception e) {
 			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);

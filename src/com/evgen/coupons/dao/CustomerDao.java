@@ -76,8 +76,7 @@ public class CustomerDao extends JdbcUtils implements iCustomerDao {
 			connection = getConnection();
 			statement = connection.prepareStatement(query);
 			statement.setLong(1, id);
-
-			ResultSet resultSet = statement.executeQuery();
+			resultSet = statement.executeQuery();
 
 			customer.setId(resultSet.getLong("ID"));
 			customer.setCustomerName(resultSet.getString("CUST_NAME"));
@@ -115,15 +114,13 @@ public class CustomerDao extends JdbcUtils implements iCustomerDao {
 	}
 
 	@Override
-	public void customerDeleteById(Long id) throws ApplicationException {
+	public void customerDeleteById(Customer customer) throws ApplicationException {
 		String query = "DELETE FROM CUSTOMER WHERE ID=?";
 		
 		try {
 			connection = getConnection();
 			statement = connection.prepareStatement(query);
-	
-			statement.setLong(1, id);
-
+			statement.setLong(1, customer.getId());
 			statement.executeUpdate();
 			
 		} catch (Exception e) {

@@ -9,7 +9,7 @@ public interface iCustomerDao {
 	 //create
 	 void customerCreate(Customer customer) throws ApplicationException;
 	 //delete
-	 abstract void customerDeleteById(Long id) throws ApplicationException;
+	 abstract void customerDeleteById(Customer customer) throws ApplicationException;
 	 //update
 	 void customerUpdate(Customer customer) throws ApplicationException;
 

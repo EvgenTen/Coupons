@@ -10,19 +10,19 @@ public interface ICouponsDao {
 	 //create
 	 void couponCreate(Coupon Coupon) throws ApplicationException;
 	 //delete
-	 void couponDeleteById(Long id) throws ApplicationException;
+	 void couponDeleteById(Coupon coupon) throws ApplicationException;
 	 //update
 	 void couponUpdate(Coupon coupon) throws ApplicationException;
 
-	//collection read
+	//collection get
 	 List<Coupon> getAllCoupons()throws ApplicationException;
 	 
 	 Coupon couponGetById(Long id)throws ApplicationException;
 	 
-	 Coupon couponGetByType(CouponType couponType) throws ApplicationException;
+	 List<Coupon> couponGetByType(CouponType couponType) throws ApplicationException;
 	 
-	 Coupon couponGetByCompany(long companyId) throws ApplicationException;
+	 List<Coupon> couponGetByCompany(long companyId) throws ApplicationException;
 	 
-	 Coupon couponGetByCustomer(long customerId) throws ApplicationException;
+	 List<Coupon> couponGetByCustomer(long customerId) throws ApplicationException;
 	
 }

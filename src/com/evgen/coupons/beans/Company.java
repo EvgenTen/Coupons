@@ -19,9 +19,9 @@ public class Company {
 	public Company(long id, String companyName, String password, String email) {
 		super();
 		this.id = id;
-//		this.companyName = companyName;
-//		this.password = password;
-//		this.email = email;
+		this.companyName = companyName;
+		this.password = password;
+		this.email = email;
 	}
 
 	public long getId() {

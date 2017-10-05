@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import com.evgen.coupons.beans.Company;
 import com.evgen.coupons.beans.Coupon;
 import com.evgen.coupons.enums.CouponType;
 import com.evgen.coupons.enums.ErrorType;
@@ -14,27 +15,27 @@ import com.evgen.coupons.utils.JdbcUtils;
 
 public class CouponsDao extends JdbcUtils implements ICouponsDao {
 
-	PreparedStatement statement;
-	Connection connection;
-	ResultSet resultSet;
-	
+	PreparedStatement statement = null;
+	Connection connection = null;
+	ResultSet resultSet = null;
+
 	@Override
 	public void couponCreate(Coupon coupon) throws ApplicationException {
 
 		String query = "INSERT INTO COUPON (ID, TITLE, START_DATE, END_DATE, AMOUNT, TYPE, MESSAGE, PRICE, IMAGE, COMP_ID) "
 				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		
+
 		try {
 			connection = getConnection();
 			statement = connection.prepareStatement(query);
-			
+
 			statement.setLong(1, coupon.getId());
 			statement.setString(2, coupon.getTitle());
 			statement.setString(3, coupon.getStartDate());
 			statement.setString(4, coupon.getEndDate());
 			statement.setInt(5, coupon.getAmount());
 			statement.setString(6, coupon.getType().name());
-//			statement.setString(6, coupon.getType().name().trim());
+			// statement.setString(6, coupon.getType().name().trim());
 			statement.setString(7, coupon.getMessage());
 			statement.setFloat(8, coupon.getPrice());
 			statement.setString(9, coupon.getImage());
@@ -51,11 +52,10 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 	}
 
 	@Override
-	public List<Coupon> getAllCoupons() throws ApplicationException{
+	public List<Coupon> getAllCoupons() throws ApplicationException {
 		List<Coupon> couponList = new ArrayList<>();
 
-		String query = "SELECT ID, TITLE, START_DATE, END_DATE, AMOUNT, TYPE, MESSAGE, PRICE, IMAGE, COMP_ID "
-				+ "FROM COUPON";
+		String query = "SELECT * FROM COUPON";
 
 		try {
 			connection = getConnection();
@@ -78,7 +78,7 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 				couponList.add(coupon);
 			}
 		} catch (Exception e) {
-			throw  new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR); 
+			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);
 		} finally {
 			JdbcUtils.closeResources(connection, statement, resultSet);
 		}
@@ -88,16 +88,14 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 	@Override
 	public Coupon couponGetById(Long id) throws ApplicationException {
 
-
-		String query = "ID, TITLE, START_DATE, END_DATE, AMOUNT, TYPE, MESSAGE, PRICE, IMAGE, COMP_ID WHERE ID=?";
+		String query = "SELECT * FROM COUPON WHERE ID=" + id;
 
 		Coupon coupon = new Coupon();
 		try {
+			connection = getConnection();
 			statement = connection.prepareStatement(query);
-			statement.setLong(1, id);
-
-			ResultSet resultSet = statement.executeQuery();
-
+			resultSet = statement.executeQuery();
+			resultSet.next();
 			coupon.setId(resultSet.getLong("ID"));
 			coupon.setTitle(resultSet.getString("TITLE"));
 			coupon.setStartDate(resultSet.getString("START_DATE"));
@@ -107,11 +105,11 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 			coupon.setMessage(resultSet.getString("MESSAGE"));
 			coupon.setPrice(resultSet.getFloat("PRICE"));
 			coupon.setImage(resultSet.getString("IMAGE"));
-			coupon.setId(resultSet.getLong("COMP_ID"));
-			statement.executeUpdate();
-			
-		}  catch (Exception e) {
-			throw  new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR); 
+			coupon.setCompanyId(resultSet.getLong("COMP_ID"));
+			statement.executeQuery();
+
+		} catch (Exception e) {
+			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);
 		} finally {
 			JdbcUtils.closeResources(connection, statement, resultSet);
 		}
@@ -121,93 +119,63 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 	@Override
 	public void couponUpdate(Coupon coupon) throws ApplicationException {
 
-		String query = "UPDATE COUPON SET TITLE, START_DATE, END_DATE, AMOUNT, TYPE, MESSAGE, PRICE, IMAGE, COMP_ID WHERE ID=0";
+		String query = "UPDATE COUPON SET TITLE, START_DATE, END_DATE, AMOUNT, TYPE, MESSAGE, PRICE, IMAGE, COMP_ID WHERE ID=?";
 
 		try {
+			connection = getConnection();
 			statement = connection.prepareStatement(query);
 
 			statement.setString(1, coupon.getTitle());
 			statement.setString(2, coupon.getStartDate());
 			statement.setString(3, coupon.getEndDate());
 			statement.setInt(4, coupon.getAmount());
-			
-			String type = coupon.getType().name();
-			statement.setString(6, type.trim());
 			statement.setString(5, coupon.getMessage());
+			statement.setString(6, coupon.getType().name());
 			statement.setFloat(6, coupon.getPrice());
 			statement.setString(7, coupon.getImage());
 			statement.setLong(8, coupon.getCompanyId());
 			statement.executeUpdate();
 
-		}  catch (Exception e) {
-			throw  new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR); 
+		} catch (Exception e) {
+			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);
 		} finally {
-			JdbcUtils.closeResources(connection, statement );
+			JdbcUtils.closeResources(connection, statement);
 		}
-	
+
 	}
 
 	@Override
-	public void couponDeleteById(Long id) throws ApplicationException {
-		
-		Coupon coupon = new Coupon();
+	public void couponDeleteById(Coupon coupon) throws ApplicationException {
+
+		// Coupon coupon = new Coupon();
 		String query = "DELETE FROM COUPON WHERE ID=?";
 
 		try {
+			connection = getConnection();
 			statement = connection.prepareStatement(query);
 			statement.setLong(1, coupon.getId());
 			statement.executeUpdate();
 
-		}   catch (Exception e) {
-			throw  new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR); 
+		} catch (Exception e) {
+			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);
 		} finally {
-			JdbcUtils.closeResources(connection, statement, resultSet);
+			JdbcUtils.closeResources(connection, statement);
 		}
 	}
 
 	@Override
-	public Coupon couponGetByType (CouponType couponType) throws ApplicationException {
-
-		String query = "ID, TITLE, START_DATE, END_DATE, AMOUNT, TYPE, MESSAGE, PRICE, IMAGE, COMP_ID WHERE TYPE=?";
-
-		Coupon coupon = new Coupon();
-		try {
-			statement = connection.prepareStatement(query);
-			statement.setString(1, coupon.getType().name().trim());
-
-			ResultSet resultSet = statement.executeQuery();
-
-			coupon.setId(resultSet.getLong("ID"));
-			coupon.setTitle(resultSet.getString("TITLE"));
-			coupon.setStartDate(resultSet.getString("START_DATE"));
-			coupon.setEndDate(resultSet.getString("END_DATE"));
-			coupon.setAmount(resultSet.getInt("AMOUNT"));
-			coupon.setType(CouponType.valueOf(resultSet.getString("TYPE")));
-			coupon.setMessage(resultSet.getString("MESSAGE"));
-			coupon.setImage(resultSet.getString("IMAGE"));
-			coupon.setId(resultSet.getLong("COMP_ID"));
-			statement.executeUpdate();
-			
-		}  catch (Exception e) {
-			throw  new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR); 
-		} finally {
-			JdbcUtils.closeResources(connection, statement, resultSet);
-		}
-		return coupon;
-	}
+	public List<Coupon> couponGetByType(CouponType couponType) throws ApplicationException {
+		List<Coupon> couponGetByType = new ArrayList<>();
 	
-
-	@Override
-	public Coupon couponGetByCompany(long companyId) throws ApplicationException {
-		String query = "ID, TITLE, START_DATE, END_DATE, AMOUNT, TYPE, MESSAGE, PRICE, IMAGE, COMP_ID WHERE COMP_ID=?";
-
-		Coupon coupon = new Coupon();
+		String query = "SELECT * FROM COUPON WHERE TYPE = ?";
 		try {
+			connection = getConnection();
 			statement = connection.prepareStatement(query);
-			statement.setLong(1, coupon.getCompanyId());
+			statement.setString(1,  couponType.name());
+			resultSet = statement.executeQuery();
 
-			ResultSet resultSet = statement.executeQuery();
-
+			while (resultSet.next()) {
+			Coupon coupon = new Coupon();
 			coupon.setId(resultSet.getLong("ID"));
 			coupon.setTitle(resultSet.getString("TITLE"));
 			coupon.setStartDate(resultSet.getString("START_DATE"));
@@ -216,29 +184,29 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 			coupon.setType(CouponType.valueOf(resultSet.getString("TYPE")));
 			coupon.setMessage(resultSet.getString("MESSAGE"));
 			coupon.setImage(resultSet.getString("IMAGE"));
-			coupon.setId(resultSet.getLong("COMP_ID"));
-			statement.executeUpdate();
-			
-		}  catch (Exception e) {
-			throw  new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR); 
+			coupon.setCompanyId(resultSet.getLong("COMP_ID"));
+			couponGetByType.add(coupon);
+			}
+		} catch (Exception e) {
+			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);
 		} finally {
 			JdbcUtils.closeResources(connection, statement, resultSet);
 		}
-		return coupon;
+		return couponGetByType;
 	}
-	
 
 	@Override
-	public Coupon couponGetByCustomer(long customerId) throws ApplicationException {
-		String query = "ID, TITLE, START_DATE, END_DATE, AMOUNT, TYPE, MESSAGE, PRICE, IMAGE, COMP_ID WHERE COMP_ID=?";
-
-		Coupon coupon = new Coupon();
+	public List<Coupon> couponGetByCompany(long companyId) throws ApplicationException {
+		
+		List<Coupon> couponGetByCompany = new ArrayList<>();
+		String query = "SELECT * FROM COUPON WHERE COMP_ID=" + companyId;
 		try {
+			connection = getConnection();
 			statement = connection.prepareStatement(query);
-			statement.setLong(1, coupon.getCompanyId());
+			resultSet = statement.executeQuery();
 
-			ResultSet resultSet = statement.executeQuery();
-
+			while (resultSet.next()) {
+			Coupon coupon = new Coupon();
 			coupon.setId(resultSet.getLong("ID"));
 			coupon.setTitle(resultSet.getString("TITLE"));
 			coupon.setStartDate(resultSet.getString("START_DATE"));
@@ -247,14 +215,45 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 			coupon.setType(CouponType.valueOf(resultSet.getString("TYPE")));
 			coupon.setMessage(resultSet.getString("MESSAGE"));
 			coupon.setImage(resultSet.getString("IMAGE"));
-			coupon.setId(resultSet.getLong("COMP_ID"));
-			statement.executeUpdate();
-			
-		}  catch (Exception e) {
-			throw  new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR); 
+			coupon.setCompanyId(resultSet.getLong("COMP_ID"));
+			couponGetByCompany.add(coupon);
+			}
+		} catch (Exception e) {
+			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);
 		} finally {
 			JdbcUtils.closeResources(connection, statement, resultSet);
 		}
-		return coupon;
+		return couponGetByCompany;
+	}
+
+	@Override
+	public List<Coupon> couponGetByCustomer(long customerId) throws ApplicationException {
+		List<Coupon> couponGetByCustomer = new ArrayList<>();
+		String query = "SELECT * FROM COUPON WHERE COMP_ID=" + customerId;
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement(query);
+			resultSet = statement.executeQuery();
+
+			while (resultSet.next()) {
+				Coupon coupon = new Coupon();
+				coupon.setId(resultSet.getLong("ID"));
+				coupon.setTitle(resultSet.getString("TITLE"));
+				coupon.setStartDate(resultSet.getString("START_DATE"));
+				coupon.setEndDate(resultSet.getString("END_DATE"));
+				coupon.setAmount(resultSet.getInt("AMOUNT"));
+				coupon.setType(CouponType.valueOf(resultSet.getString("TYPE")));
+				coupon.setMessage(resultSet.getString("MESSAGE"));
+				coupon.setImage(resultSet.getString("IMAGE"));
+				coupon.setCompanyId(resultSet.getLong("COMP_ID"));
+				couponGetByCustomer.add(coupon);
+
+			}
+		} catch (Exception e) {
+			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);
+		} finally {
+			JdbcUtils.closeResources(connection, statement, resultSet);
+		}
+		return couponGetByCustomer;
 	}
 }
