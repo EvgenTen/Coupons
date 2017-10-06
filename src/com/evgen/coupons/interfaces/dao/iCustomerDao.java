@@ -16,7 +16,7 @@ public interface iCustomerDao {
 	//collection read
 	 List<Customer> getAllCustomers() throws ApplicationException;
 	 
-	Customer getById(Long id) throws ApplicationException;
+	Customer customerGetById(Long id) throws ApplicationException;
 	
 	
 	

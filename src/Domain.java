@@ -34,8 +34,7 @@ public class Domain {
 //	    	Company com = new Company(8,"Sony", "1234567", "dfdf@dgdf.com");
 //	    	companyDao.companyCreate(com);
 //Customer Create:    	
-//	     	Customer cust = new Customer(11,"Name", "Pass");
-//	     	cust.setId(5);
+//	     	Customer cust = new Customer(5, "Name", "Pass");
 //	    	customerDao.customerCreate(cust);
 	    	
 //_________________________________________________________________
@@ -46,7 +45,9 @@ public class Domain {
 //Company Update:
 //	    	Company companyUpd = new Company(2,"KIA", "dfbg657dgDFG", "dfdf@dgdf.com");
 //	    	companyDao.companyUpdate(companyUpd);
-	    	
+//Customer Update:
+//	    	Customer customer = new Customer(5, "Sirozha", "123");
+//	    	customerDao.customerUpdate(customer);
 	    	
 	    	
 	    	//	    	________________________________
@@ -72,13 +73,13 @@ public class Domain {
 //                System.out.println(co);
 //            }
 //Get All by Company:
-//				List<Coupon> couponList = couponsDao.couponGetByCompany(3);
+//				List<Coupon> couponList = couponsDao.couponGetByCompany(7);
 //		        System.out.println("Coupons list:");
 //	            for (Coupon co : couponList) {   	
 //	                System.out.println(co);
 //	            }
 //Get Coupon by TYPE:	
-//	            List<Coupon> couponList = couponsDao.couponGetByType(CouponType.TRAVELLING);
+//	            List<Coupon> couponList = couponsDao.couponGetByType(CouponType.CARS);
 //		        System.out.println("Coupons list:");
 //	            for (Coupon co : couponList) {   	
 //	                System.out.println(co);
@@ -100,16 +101,17 @@ public class Domain {
 //			 companyDao.companyDeleteById(company);
 			
 //			 Customer customer = new Customer();
-//			 customer.setId(9);
+//			 customer.setId(25);
 //			 customerDao.customerDeleteById(customer);
 // Get By ID:
 //           Coupon coupon = couponsDao.couponGetById((long)4);
 //           System.out.println(coupon);
 				
-		     Company company = companyDao.companyGetById((long)2);
-		     System.out.println(company);
+//		     Company company = companyDao.companyGetById((long)2);
+//		     System.out.println(company);
 			 
-				
+//			 Customer customer = customerDao.customerGetById((long)3);
+//			 System.out.println(customer);
 
             
         } catch (Exception e) {

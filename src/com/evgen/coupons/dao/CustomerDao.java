@@ -68,7 +68,7 @@ public class CustomerDao extends JdbcUtils implements iCustomerDao {
 	}
 
 	@Override
-	public Customer getById(Long id) throws ApplicationException {
+	public Customer customerGetById(Long id) throws ApplicationException {
 
 		String query = "SELECT * FROM CUSTOMER WHERE ID=" + id;
 
