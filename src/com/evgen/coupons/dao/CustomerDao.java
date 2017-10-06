@@ -13,9 +13,9 @@ import com.evgen.coupons.interfaces.dao.iCustomerDao;
 import com.evgen.coupons.utils.JdbcUtils;
 
 public class CustomerDao extends JdbcUtils implements iCustomerDao {
-	PreparedStatement statement;
-	Connection connection;
-	ResultSet resultSet;
+	PreparedStatement statement = null;
+	Connection connection = null;
+	ResultSet resultSet = null;
 	
 	@Override
 	public void customerCreate(Customer customer) throws ApplicationException {
@@ -31,6 +31,7 @@ public class CustomerDao extends JdbcUtils implements iCustomerDao {
 			statement.setString(3, customer.getPassword());
 
 			statement.executeUpdate();
+			
 		} catch (Exception e) {
 			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);
 
@@ -43,7 +44,7 @@ public class CustomerDao extends JdbcUtils implements iCustomerDao {
 	public List<Customer> getAllCustomers() throws ApplicationException {
 		List<Customer> customerList = new ArrayList<>();
 
-		String query = "SELECT ID, CUST_NAME, PASSWORD " + "FROM CUSTOMER";
+		String query = "SELECT * FROM CUSTOMER";
 
 		try {
 			connection = getConnection();
@@ -69,20 +70,19 @@ public class CustomerDao extends JdbcUtils implements iCustomerDao {
 	@Override
 	public Customer getById(Long id) throws ApplicationException {
 
-		String query = "SELECT ID, CUST_NAME, PASSWORD WHERE ID=?";
+		String query = "SELECT * FROM CUSTOMER WHERE ID=" + id;
 
 		Customer customer = new Customer();
 		try {
 			connection = getConnection();
 			statement = connection.prepareStatement(query);
-			statement.setLong(1, id);
 			resultSet = statement.executeQuery();
+			resultSet.next();
 
 			customer.setId(resultSet.getLong("ID"));
 			customer.setCustomerName(resultSet.getString("CUST_NAME"));
 			customer.setPassword(resultSet.getString("PASSWORD"));
 
-			statement.executeUpdate();
 		} catch (Exception e) {
 			throw  new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR); 
 		} finally {
@@ -99,11 +99,11 @@ public class CustomerDao extends JdbcUtils implements iCustomerDao {
 		try {
 			connection = getConnection();
 			statement = connection.prepareStatement(query);
+			statement.setLong(3, customer.getId());
 			
 			statement.setString(1, customer.getCustomerName());
 			statement.setString(2, customer.getPassword());
-			statement.setLong(3, customer.getId());
-
+		
 			statement.executeUpdate();
 			
 		} catch (Exception e) {

@@ -12,9 +12,9 @@ import com.evgen.coupons.interfaces.dao.ICompanyDao;
 import com.evgen.coupons.utils.JdbcUtils;
 
 public class CompanyDao extends JdbcUtils implements ICompanyDao {
-	PreparedStatement statement;
-	Connection connection;
-	ResultSet resultSet;
+	PreparedStatement statement = null;
+	Connection connection = null;
+	ResultSet resultSet = null;
 
 	@Override
 	public void companyCreate(Company company) throws ApplicationException {
@@ -43,7 +43,7 @@ public class CompanyDao extends JdbcUtils implements ICompanyDao {
 	public List<Company> getAllCompanies() throws ApplicationException {
 		List<Company> companyList = new ArrayList<>();
 
-		String query = "SELECT ID, COMP_NAME, PASSWORD, EMAIL " + "FROM COMPANY";
+		String query = "SELECT * FROM COMPANY";
 
 		try {
 			connection = getConnection();
@@ -56,6 +56,7 @@ public class CompanyDao extends JdbcUtils implements ICompanyDao {
 				company.setCompanyName(resultSet.getString("COMP_NAME"));
 				company.setPassword(resultSet.getString("PASSWORD"));
 				company.setEmail(resultSet.getString("EMAIL"));
+				
 				companyList.add(company);
 			}
 		} catch (Exception e) {
@@ -69,20 +70,21 @@ public class CompanyDao extends JdbcUtils implements ICompanyDao {
 	@Override
 	public Company companyGetById(Long id) throws ApplicationException {
 
-		String query = "SELECT ID, COMP_NAME, PASSWORD, EMAIL WHERE ID=?";
+		String query = "SELECT * FROM COMPANY WHERE ID=" + id;
 
 		Company company = new Company();
 		try {
+			connection = getConnection();
 			statement = connection.prepareStatement(query);
-			statement.setLong(1, id);
-
 			resultSet = statement.executeQuery();
-
+			resultSet.next();
+			
 			company.setId(resultSet.getLong("ID"));
-			company.setCompanyName(resultSet.getString("CUST_NAME"));
+			company.setCompanyName(resultSet.getString("COMP_NAME"));
 			company.setPassword(resultSet.getString("PASSWORD"));
+			company.setEmail(resultSet.getString("EMAIL"));
 
-			statement.executeUpdate();
+			
 		} catch (Exception e) {
 			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);
 		} finally {
@@ -97,11 +99,14 @@ public class CompanyDao extends JdbcUtils implements ICompanyDao {
 		String query = "UPDATE COMPANY SET COMP_NAME=?, PASSWORD=?, EMAIL=?  WHERE ID=?";
 
 		try {
+			connection = getConnection();
 			statement = connection.prepareStatement(query);
-
-			statement.setNString(1, company.getCompanyName());
+			statement.setLong(4, company.getId());
+			
+			statement.setString(1, company.getCompanyName());
 			statement.setString(2, company.getPassword());
 			statement.setString(3, company.getEmail());
+			
 			statement.executeUpdate();
 
 		} catch (Exception e) {
@@ -121,6 +126,7 @@ public class CompanyDao extends JdbcUtils implements ICompanyDao {
 			statement = connection.prepareStatement(query);
 			statement.setLong(1, company.getId());
 			statement.executeUpdate();
+			
 		} catch (Exception e) {
 			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);
 		} finally {

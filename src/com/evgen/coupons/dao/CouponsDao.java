@@ -33,7 +33,7 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 			statement.setString(2, coupon.getTitle());
 			statement.setString(3, coupon.getStartDate());
 			statement.setString(4, coupon.getEndDate());
-			statement.setInt(5, coupon.getAmount());
+			statement.setDouble(5, coupon.getAmount());
 			statement.setString(6, coupon.getType().name());
 			statement.setString(7, coupon.getMessage());
 			statement.setFloat(8, coupon.getPrice());
@@ -118,21 +118,23 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 	@Override
 	public void couponUpdate(Coupon coupon) throws ApplicationException {
 
-		String query = "UPDATE COUPON SET TITLE, START_DATE, END_DATE, AMOUNT, TYPE, MESSAGE, PRICE, IMAGE, COMP_ID " + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)" + "WHERE ID=?";
-
+		String query = "UPDATE COUPON SET TITLE=?, START_DATE=?, END_DATE=?, AMOUNT=?, TYPE=?, MESSAGE=?, PRICE=?, IMAGE=?, COMP_ID=? WHERE ID=?";
+		   
 		try {
 			connection = getConnection();
 			statement = connection.prepareStatement(query);
-
+			statement.setLong(10, coupon.getId());
+			
 			statement.setString(1, coupon.getTitle());
 			statement.setString(2, coupon.getStartDate());
 			statement.setString(3, coupon.getEndDate());
 			statement.setInt(4, coupon.getAmount());
-			statement.setString(5, coupon.getMessage());
-			statement.setString(6, coupon.getType().name());
+			statement.setString(5, coupon.getType().name());
+			statement.setString(6, coupon.getMessage());
 			statement.setFloat(7, coupon.getPrice());
 			statement.setString(8, coupon.getImage());
 			statement.setLong(9, coupon.getCompanyId());
+			
 			statement.executeUpdate();
 
 		} catch (Exception e) {

@@ -19,49 +19,35 @@ public class Domain {
 	    	
 //Coupon Create:
 //	    	Coupon couponAdd = new Coupon();
-//	    	couponAdd.setId(4);
-//			couponAdd.setTitle("Coupon from 235");
+//	    	couponAdd.setId(9);
+//			couponAdd.setTitle("5Sta coupon");
 //			couponAdd.setStartDate("15.01.2018");
 //			couponAdd.setEndDate("25.02.2018");
-//			couponAdd.setAmount(122);
+//			couponAdd.setAmount(100);
 //			couponAdd.setPrice(12.5f);
 //			couponAdd.setType(CouponType.TRAVELLING);
-//			couponAdd.setMessage("phpmyadmin");
+//			couponAdd.setMessage("Crazy shmul");
 //			couponAdd.setImage("IMAGE");
 //			couponAdd.setCompanyId(7);
 //			couponsDao.couponCreate(couponAdd);
 //Company Create:	    	
-//	    	Company com = new Company(9,"Adidas", "1234567", "dfdf@dgdf.com");
-//	    	com.setId(2);
-//	    	com.setCompanyName("Kamboja");
-//	    	com.setEmail("email@mail.ru");
-//	    	com.setPassword("123456789");
+//	    	Company com = new Company(8,"Sony", "1234567", "dfdf@dgdf.com");
 //	    	companyDao.companyCreate(com);
 //Customer Create:    	
 //	     	Customer cust = new Customer(11,"Name", "Pass");
 //	     	cust.setId(5);
-//	    	cust.setCustomerName("Mark");
-//	    	cust.setPassword("504624");
 //	    	customerDao.customerCreate(cust);
 	    	
 //_________________________________________________________________
 
 //Coupon Update:
-	    	Coupon couponUpd = new Coupon();
-	    			//("Glida Barvazzi", "23.05.2018", "23.06.2018", 100, "Very Tasty", 9.99f, "BIG IMAGE", 11, CouponType.CAMPING);
+//	   	Coupon couponUpd = new Coupon(2, "Glida Barvazzi", "23.05.2018", "23.06.2018", 100, "Very Tasty", 9.99f, "BIG", 7, CouponType.CAMPING);
+//	    	couponsDao.couponUpdate(couponUpd);
+//Company Update:
+//	    	Company companyUpd = new Company(2,"KIA", "dfbg657dgDFG", "dfdf@dgdf.com");
+//	    	companyDao.companyUpdate(companyUpd);
 	    	
-			couponUpd.setTitle("Glida Barvazzi");
-			couponUpd.setStartDate("15.01.2018");
-			couponUpd.setEndDate("23.06.2018");
-			couponUpd.setAmount(100);
-			couponUpd.setPrice(12.5f);
-			couponUpd.setType(CouponType.CAMPING);
-			couponUpd.setMessage("phpmyadmin");
-			couponUpd.setImage("IMAGE");
-			couponUpd.setCompanyId(7);
-		//	couponsDao.couponCreate(couponUpd);
-	    	couponUpd.setId(3);
-	    	couponsDao.couponUpdate(couponUpd);
+	    	
 	    	
 	    	//	    	________________________________
 		    
@@ -110,7 +96,7 @@ public class Domain {
 //           couponsDao.couponDeleteById(coupon);
 			
 //			 Company company = new Company();
-//			 company.setId(11);
+//			 company.setId(3);
 //			 companyDao.companyDeleteById(company);
 			
 //			 Customer customer = new Customer();
@@ -119,6 +105,9 @@ public class Domain {
 // Get By ID:
 //           Coupon coupon = couponsDao.couponGetById((long)4);
 //           System.out.println(coupon);
+				
+		     Company company = companyDao.companyGetById((long)2);
+		     System.out.println(company);
 			 
 				
 
