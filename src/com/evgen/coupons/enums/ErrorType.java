@@ -2,23 +2,28 @@ package com.evgen.coupons.enums;
 
 
 public enum ErrorType {
-	COUPON_CREATION_ERROR ("Unable create coupon"),
+	COUPON_CREATE_ERROR ("Unable create coupon"),
 	COUPON_DELETE_ERROR ("Unable delete coupon"),
 	COUPON_UPDATE_ERROR ("Unable update coupon"),
-	COUPON_RETREIVE_ERROR ("Unable retreive coupon"),
+	COUPON_RETREIVE_BY_ID_ERROR ("Unable retreive coupon"),
 	UNABLE_TO_RETREIVE_ALL_COUPONS ("Unable to retreive all coupons"),
+	UNABLE_TO_RETREIVE_COUPONS_BY_COMPANY("Unable to retreive coupons by company"),
+	UNABLE_TO_RETREIVE_COUPONS_BY_CUSTOMER("Unable to retreive coupons by customer"),
+	UNABLE_TO_RETREIVE_COUPONS_BY_TYPE("Unable to retreive coupons by type"),
 
 	USER_ERROR ("User doesn`t exist"),
 //	GENERAL_ERROR,
 	
-	COMPANY_CREATION_ERROR ("Unable create company"),
+	COMPANY_CREATE_ERROR ("Unable create company"),
 	COMPANY_DELETE_ERROR ("Unable delete company"),
 	COMPANY_UPDATE_ERROR ("Unable update company"),
+	UNABLE_TO_RETREIVE_ALL_COMPANIES("Unable to retreive list of all companies"),
 	COMPANY_RETREIVE_ERROR ("Unable retreive company"),
 
-	CUSTOMER_CREATION_ERROR ("Unable create user"),
+	CUSTOMER_CREATE_ERROR ("Unable create user"),
 	CUSTOMER_DELETE_ERROR ("Unable delete user"),
 	CUSTOMER_UPDATE_ERROR ("Unable update user"),
+	UNABLE_TO_RETREIVE_ALL_CUSTOMERS("Unable to retreive list of all customers"),
 	CUSTOMER_RETREIVE_ERROR ("Unable retreive user"),
 	
 	DATABASE_CONNECTION_ERROR ("Unable to connect to database"),

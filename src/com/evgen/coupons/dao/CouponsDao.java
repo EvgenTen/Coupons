@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import com.evgen.coupons.beans.Company;
 import com.evgen.coupons.beans.Coupon;
 import com.evgen.coupons.enums.CouponType;
 import com.evgen.coupons.enums.ErrorType;
@@ -43,7 +42,7 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 			statement.executeUpdate();
 
 		} catch (Exception e) {
-			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);
+			throw new ApplicationException(e, ErrorType.COUPON_CREATE_ERROR);
 
 		} finally {
 			JdbcUtils.closeResources(connection, statement);
@@ -77,7 +76,7 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 				couponList.add(coupon);
 			}
 		} catch (Exception e) {
-			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);
+			throw new ApplicationException(e, ErrorType.UNABLE_TO_RETREIVE_ALL_COUPONS);
 		} finally {
 			JdbcUtils.closeResources(connection, statement, resultSet);
 		}
@@ -108,7 +107,7 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 			statement.executeQuery();
 
 		} catch (Exception e) {
-			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);
+			throw new ApplicationException(e, ErrorType.COUPON_RETREIVE_BY_ID_ERROR);
 		} finally {
 			JdbcUtils.closeResources(connection, statement, resultSet);
 		}
@@ -138,7 +137,7 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 			statement.executeUpdate();
 
 		} catch (Exception e) {
-			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);
+			throw new ApplicationException(e, ErrorType.COUPON_UPDATE_ERROR);
 		} finally {
 			JdbcUtils.closeResources(connection, statement);
 		}
@@ -157,7 +156,7 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 			statement.executeUpdate();
 
 		} catch (Exception e) {
-			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);
+			throw new ApplicationException(e, ErrorType.COUPON_DELETE_ERROR);
 		} finally {
 			JdbcUtils.closeResources(connection, statement);
 		}
@@ -188,7 +187,7 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 			couponGetByType.add(coupon);
 			}
 		} catch (Exception e) {
-			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);
+			throw new ApplicationException(e, ErrorType.UNABLE_TO_RETREIVE_COUPONS_BY_TYPE);
 		} finally {
 			JdbcUtils.closeResources(connection, statement, resultSet);
 		}
@@ -219,7 +218,7 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 			couponGetByCompany.add(coupon);
 			}
 		} catch (Exception e) {
-			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);
+			throw new ApplicationException(e, ErrorType.UNABLE_TO_RETREIVE_COUPONS_BY_COMPANY);
 		} finally {
 			JdbcUtils.closeResources(connection, statement, resultSet);
 		}
@@ -251,7 +250,7 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 
 			}
 		} catch (Exception e) {
-			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);
+			throw new ApplicationException(e, ErrorType.UNABLE_TO_RETREIVE_COUPONS_BY_CUSTOMER);
 		} finally {
 			JdbcUtils.closeResources(connection, statement, resultSet);
 		}

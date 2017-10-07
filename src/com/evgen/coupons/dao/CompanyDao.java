@@ -32,7 +32,7 @@ public class CompanyDao extends JdbcUtils implements ICompanyDao {
 
 			statement.executeUpdate();
 		} catch (Exception e) {
-			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);
+			throw new ApplicationException(e, ErrorType.COMPANY_CREATE_ERROR);
 		} finally {
 			JdbcUtils.closeResources(connection, statement);
 		}
@@ -60,7 +60,7 @@ public class CompanyDao extends JdbcUtils implements ICompanyDao {
 				companyList.add(company);
 			}
 		} catch (Exception e) {
-			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);
+			throw new ApplicationException(e, ErrorType.UNABLE_TO_RETREIVE_ALL_COMPANIES);
 		} finally {
 			JdbcUtils.closeResources(connection, statement, resultSet);
 		}
@@ -86,7 +86,7 @@ public class CompanyDao extends JdbcUtils implements ICompanyDao {
 
 			
 		} catch (Exception e) {
-			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);
+			throw new ApplicationException(e, ErrorType.COMPANY_RETREIVE_ERROR);
 		} finally {
 			JdbcUtils.closeResources(connection, statement, resultSet);
 		}
@@ -110,7 +110,7 @@ public class CompanyDao extends JdbcUtils implements ICompanyDao {
 			statement.executeUpdate();
 
 		} catch (Exception e) {
-			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);
+			throw new ApplicationException(e, ErrorType.COMPANY_UPDATE_ERROR);
 		} finally {
 			JdbcUtils.closeResources(connection, statement);
 		}
@@ -128,7 +128,7 @@ public class CompanyDao extends JdbcUtils implements ICompanyDao {
 			statement.executeUpdate();
 			
 		} catch (Exception e) {
-			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);
+			throw new ApplicationException(e, ErrorType.COMPANY_DELETE_ERROR);
 		} finally {
 			JdbcUtils.closeResources(connection, statement);
 		}

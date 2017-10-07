@@ -33,7 +33,7 @@ public class CustomerDao extends JdbcUtils implements iCustomerDao {
 			statement.executeUpdate();
 			
 		} catch (Exception e) {
-			throw new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR);
+			throw new ApplicationException(e, ErrorType.CUSTOMER_CREATE_ERROR);
 
 		} finally {
 			JdbcUtils.closeResources(connection, statement);
@@ -60,7 +60,7 @@ public class CustomerDao extends JdbcUtils implements iCustomerDao {
 				customerList.add(customer);
 			}
 		} catch (Exception e) {
-			throw  new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR); 
+			throw  new ApplicationException(e, ErrorType.UNABLE_TO_RETREIVE_ALL_CUSTOMERS); 
 		} finally {
 			JdbcUtils.closeResources(connection, statement, resultSet);
 		}
@@ -84,7 +84,7 @@ public class CustomerDao extends JdbcUtils implements iCustomerDao {
 			customer.setPassword(resultSet.getString("PASSWORD"));
 
 		} catch (Exception e) {
-			throw  new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR); 
+			throw  new ApplicationException(e, ErrorType.CUSTOMER_RETREIVE_ERROR); 
 		} finally {
 			JdbcUtils.closeResources(connection, statement, resultSet);
 		}
@@ -107,7 +107,7 @@ public class CustomerDao extends JdbcUtils implements iCustomerDao {
 			statement.executeUpdate();
 			
 		} catch (Exception e) {
-			throw  new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR); 
+			throw  new ApplicationException(e, ErrorType.CUSTOMER_UPDATE_ERROR); 
 		} finally {
 			JdbcUtils.closeResources(connection, statement);
 		}
@@ -124,7 +124,7 @@ public class CustomerDao extends JdbcUtils implements iCustomerDao {
 			statement.executeUpdate();
 			
 		} catch (Exception e) {
-			throw  new ApplicationException(e, ErrorType.COUPON_CREATION_ERROR); 
+			throw  new ApplicationException(e, ErrorType.CUSTOMER_DELETE_ERROR); 
 		} finally {
 			JdbcUtils.closeResources(connection, statement);
 		}
