@@ -133,4 +133,35 @@ public class CompanyDao extends JdbcUtils implements ICompanyDao {
 			JdbcUtils.closeResources(connection, statement);
 		}
 	}
+
+	@Override
+	public boolean login(String companyName, String companyPassword) throws ApplicationException {
+		
+		String query = "SELECT COMP_NAME, PASSWORD FROM COMPANY WHERE COMP_NAME = ?";
+
+		Company company = new Company();
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement(query);
+			statement.setString(1, companyName);
+			resultSet = statement.executeQuery();
+			resultSet.next();
+			
+			company.setCompanyName(resultSet.getString("COMP_NAME"));
+			company.setPassword(resultSet.getString("PASSWORD"));
+
+			if (!companyName.equals(company.getCompanyName())  && !companyPassword.equals(company.getPassword())) {
+				System.out.println("Login or password incorrect");
+				return false;
+			} else return true;
+			
+		} catch (Exception e) {
+			throw new ApplicationException(e, ErrorType.WRONG_COMPANY_NAME_OR_DOESNT_EXIST);
+		} finally {
+			JdbcUtils.closeResources(connection, statement, resultSet);
+		}
+		
+		
+		
+	}  
 }

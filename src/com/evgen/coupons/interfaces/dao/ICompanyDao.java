@@ -17,4 +17,5 @@ public interface ICompanyDao {
 	 
 	 Company companyGetById(Long id) throws ApplicationException;
 
+	 boolean login(String companyName, String companyPassword) throws ApplicationException;
 } 

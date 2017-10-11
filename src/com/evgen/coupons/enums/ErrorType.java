@@ -19,13 +19,14 @@ public enum ErrorType {
 	COMPANY_UPDATE_ERROR ("Unable update company"),
 	UNABLE_TO_RETREIVE_ALL_COMPANIES("Unable to retreive list of all companies"),
 	COMPANY_RETREIVE_ERROR ("Unable retreive company"),
+	WRONG_COMPANY_NAME_OR_DOESNT_EXIST ("Wrong company name or company does not exist"),
 
 	CUSTOMER_CREATE_ERROR ("Unable create user"),
 	CUSTOMER_DELETE_ERROR ("Unable delete user"),
 	CUSTOMER_UPDATE_ERROR ("Unable update user"),
 	UNABLE_TO_RETREIVE_ALL_CUSTOMERS("Unable to retreive list of all customers"),
 	CUSTOMER_RETREIVE_ERROR ("Unable retreive user"),
-	
+	WRONG_CUSTOMER_NAME_OR_DOESNT_EXIST ("Wrong customer name or customer does not exist"),
 	DATABASE_CONNECTION_ERROR ("Unable to connect to database"),
 	DATABASE_CONNECTION_CLOSING_ERROR ("Unable disconnect from database"),
 	

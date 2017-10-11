@@ -18,6 +18,8 @@ public interface iCustomerDao {
 	 
 	Customer customerGetById(Long id) throws ApplicationException;
 	
+	boolean login(String customerName, String vustomerPassword) throws ApplicationException;
+	
 	
 	
 	 

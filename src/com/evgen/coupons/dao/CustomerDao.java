@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.evgen.coupons.beans.Company;
 import com.evgen.coupons.beans.Customer;
 import com.evgen.coupons.enums.ErrorType;
 import com.evgen.coupons.exceptions.ApplicationException;
@@ -130,4 +131,30 @@ public class CustomerDao extends JdbcUtils implements iCustomerDao {
 		}
 	}
 
+	@Override
+	public boolean login(String customerName, String customerPassword) throws ApplicationException {
+		String query = "SELECT CUST_NAME, PASSWORD FROM CUSTOMER WHERE CUST_NAME = ?";
+
+		Customer customer = new Customer();
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement(query);
+			statement.setString(1, customerName);
+			resultSet = statement.executeQuery();
+			resultSet.next();
+			
+			customer.setCustomerName(resultSet.getString("CUST_NAME"));
+			customer.setPassword(resultSet.getString("PASSWORD"));
+
+			if (!customerName.equals(customer.getCustomerName())  && !customerPassword.equals(customer.getPassword())) {
+				System.out.println("Login or password incorrect");
+				return false;
+			} else return true;
+			
+		} catch (Exception e) {
+			throw new ApplicationException(e, ErrorType.WRONG_CUSTOMER_NAME_OR_DOESNT_EXIST);
+		} finally {
+			JdbcUtils.closeResources(connection, statement, resultSet);
+		}
+	}
 }

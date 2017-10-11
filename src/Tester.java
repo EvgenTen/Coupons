@@ -39,29 +39,38 @@ public class Tester {
 //			couponAdd.setCompanyId(7);
 //			couponsDao.couponCreate(couponAdd);
 //Company Create:	    	
-	    	JTextField q = new JTextField (5);
-	    	JTextField w = new JTextField (5);
-	    	JTextField r = new JTextField (5);
-	    	JPanel myPanel = new JPanel();
-	    	myPanel. add(new JLabel("Company: "));
-	    	myPanel.add(q);
-	    	myPanel.add(Box.createHorizontalStrut(15));
-	    	myPanel. add(new JLabel("Password: "));
-	    	myPanel.add(w);
-	    	myPanel. add(new JLabel("Email: "));
-	    	myPanel.add(r);
-	 
-	    	JOptionPane.showConfirmDialog(null, myPanel, "Please enter parameters: " , JOptionPane.OK_CANCEL_OPTION);
-	    
-System.out.println(q.getText());
-System.out.println(w.getText());
-System.out.println(r.getText());
+//	    	JTextField q = new JTextField (5);
+//	    	JTextField w = new JTextField (5);
+//	    	JTextField r = new JTextField (5);
+//	    	JPanel myPanel = new JPanel();
+//	    	myPanel. add(new JLabel("Company: "));
+//	    	myPanel.add(q);
+//	    	myPanel.add(Box.createHorizontalStrut(15));
+//	    	myPanel. add(new JLabel("Password: "));
+//	    	myPanel.add(w);
+//	    	myPanel. add(new JLabel("Email: "));
+//	    	myPanel.add(r);
+//	 
+//	    	JOptionPane.showConfirmDialog(null, myPanel, "Please enter parameters: " , JOptionPane.OK_CANCEL_OPTION);
 
-	    	Company com = new Company(q.getText(), w.getText(), r.getText());	
-	    	companyDao.companyCreate(com);
+//	    	Company com = new Company(q.getText(), w.getText(), r.getText());	
+//	    	companyDao.companyCreate(com);
 //Customer Create:    	
 //	     	Customer cust = new Customer(5, "Name", "Pass");
 //	    	customerDao.customerCreate(cust);
+	    	
+//_________________________________________________________________
+
+//Company Login:
+//	    	boolean isComExist = companyDao.login("TEva", "12345");
+//	    	System.out.println("Das company tru " + isComExist);
+	    	
+//Customer Login:
+	    	boolean isCustomerExist = customerDao.login("John", "123");
+	    	System.out.println("Customer exist " + isCustomerExist);
+	    	
+	    	
+	    	
 	    	
 //_________________________________________________________________
 
@@ -80,17 +89,17 @@ System.out.println(r.getText());
 		    
 			try {
        
-//            List<Customer> customerList = customerDao.getAllCustomers();
-//            System.out.println("Customers list:");
-//            for (Customer c : customerList) {
-//                System.out.println(c);
-//            }
-//           
-            List<Company> companyList = companyDao.getAllCompanies();
-            System.out.println("Company List:");
-            for (Company comp : companyList) {
-                System.out.println(comp);
+            List<Customer> customerList = customerDao.getAllCustomers();
+            System.out.println("Customers list:");
+            for (Customer c : customerList) {
+                System.out.println(c);
             }
+//           
+//            List<Company> companyList = companyDao.getAllCompanies();
+//            System.out.println("Company List:");
+//            for (Company comp : companyList) {
+//                System.out.println(comp);
+//            }
 //           
 //            List<Coupon> couponList = couponsDao.getAllCoupons();
 //            //Thread.sleep(10000);
