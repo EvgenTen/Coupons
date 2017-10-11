@@ -1,4 +1,6 @@
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.management.StringValueExp;
@@ -63,11 +65,11 @@ public class Tester {
 
 //Company Login:
 //	    	boolean isComExist = companyDao.login("TEva", "12345");
-//	    	System.out.println("Das company tru " + isComExist);
+//	    	System.out.println("company " + isComExist);
 	    	
 //Customer Login:
-	    	boolean isCustomerExist = customerDao.login("John", "123");
-	    	System.out.println("Customer exist " + isCustomerExist);
+//	    	boolean isCustomerExist = customerDao.login("John", "123");
+//	    	System.out.println("Customer  " + isCustomerExist);
 	    	
 	    	
 	    	
@@ -89,11 +91,11 @@ public class Tester {
 		    
 			try {
        
-            List<Customer> customerList = customerDao.getAllCustomers();
-            System.out.println("Customers list:");
-            for (Customer c : customerList) {
-                System.out.println(c);
-            }
+//            List<Customer> customerList = customerDao.getAllCustomers();
+//            System.out.println("Customers list:");
+//            for (Customer c : customerList) {
+//                System.out.println(c);
+//            }
 //           
 //            List<Company> companyList = companyDao.getAllCompanies();
 //            System.out.println("Company List:");
@@ -101,12 +103,12 @@ public class Tester {
 //                System.out.println(comp);
 //            }
 //           
-//            List<Coupon> couponList = couponsDao.getAllCoupons();
-//            //Thread.sleep(10000);
-//	        System.out.println("Coupons list:");
-//            for (Coupon co : couponList) {   	
-//                System.out.println(co);
-//            }
+            List<Coupon> couponList = couponsDao.getAllCoupons();
+            //Thread.sleep(10000);
+	        System.out.println("Coupons list:");
+            for (Coupon co : couponList) {   	
+                System.out.println(co);
+            }
 //Get All by Company:
 //				List<Coupon> couponList = couponsDao.couponGetByCompany(7);
 //		        System.out.println("Coupons list:");
@@ -147,7 +149,22 @@ public class Tester {
 			 
 //			 Customer customer = customerDao.customerGetById((long)3);
 //			 System.out.println(customer);
-
+				
+//________________________________________________________________________
+				
+//Coupon get time:
+				 
+			
+				LocalDate localDate = LocalDate.now();
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+				String formattedString = localDate.format(formatter);
+				System.out.println(formattedString);
+				String date = formattedString;
+			//	Coupon coupon = new Coupon();
+				// Coupon coupon = new Coupon();
+//	           coupon.setId(3);
+				System.out.println(date);
+				 couponsDao.couponDeleteExpired(date);
             
         } catch (Exception e) {
             e.printStackTrace();

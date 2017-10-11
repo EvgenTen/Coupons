@@ -24,5 +24,7 @@ public interface ICouponsDao {
 	 List<Coupon> couponGetByCompany(long companyId) throws ApplicationException;
 	 
 	 List<Coupon> couponGetByCustomer(long customerId) throws ApplicationException;
+	 
+	 void couponDeleteExpired(String date) throws ApplicationException;
 	
 }
