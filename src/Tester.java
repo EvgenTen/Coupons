@@ -155,16 +155,11 @@ public class Tester {
 //Coupon get time:
 				 
 			
-				LocalDate localDate = LocalDate.now();
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-				String formattedString = localDate.format(formatter);
-				System.out.println(formattedString);
-				String date = formattedString;
-			//	Coupon coupon = new Coupon();
-				// Coupon coupon = new Coupon();
-//	           coupon.setId(3);
-				System.out.println(date);
-				 couponsDao.couponDeleteExpired(date);
+//				LocalDate localDate = LocalDate.now();
+//				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+//				String formattedString = localDate.format(formatter);		
+//				String date = formattedString;
+//		   	    couponsDao.couponDeleteExpired(date);
             
         } catch (Exception e) {
             e.printStackTrace();

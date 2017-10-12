@@ -260,7 +260,7 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 	@Override
 	public void couponDeleteExpired(String date) throws ApplicationException {
 		
-		String query = "DELETE * FROM coupon WHERE (STR_TO_DATE (END_DATE,'%d.%m.%Y') <= STR_TO_DATE ( ? ,'%d.%m.%Y'))";
+		String query = "DELETE FROM coupon WHERE (STR_TO_DATE (END_DATE,'%d.%m.%Y') <= STR_TO_DATE (?,'%d.%m.%Y'))";
 		try {
 			connection = getConnection();
 			statement = connection.prepareStatement(query);

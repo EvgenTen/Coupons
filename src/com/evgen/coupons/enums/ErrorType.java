@@ -30,6 +30,7 @@ public enum ErrorType {
 	DATABASE_CONNECTION_ERROR ("Unable to connect to database"),
 	DATABASE_CONNECTION_CLOSING_ERROR ("Unable disconnect from database"),
 	
+	SCHEDULE_ERROR ("Scheduled removing error"),
 	
 	CONNECTION_ERROR ("Connection ERROR");
 
