@@ -33,7 +33,7 @@ public class CouponDailyExpirationRemover extends TimerTask implements Runnable 
 
 	public static void main(String[] args) {
 
-		Thread remover = new Thread(new TimerT());
+		Thread remover = new Thread(new CouponDailyExpirationRemover());
 		Calendar today = Calendar.getInstance();
 		today.set(Calendar.HOUR_OF_DAY, 1);
 		today.set(Calendar.MINUTE, 0);
@@ -41,7 +41,7 @@ public class CouponDailyExpirationRemover extends TimerTask implements Runnable 
 
 		// every night at 1am run remover
 		Timer timer = new Timer();
-		timer.schedule(new TimerT(), today.getTime(), TimeUnit.MILLISECONDS.convert(1, TimeUnit.MINUTES)); // period:
+		timer.schedule(new CouponDailyExpirationRemover(), today.getTime(), TimeUnit.MILLISECONDS.convert(1, TimeUnit.MINUTES)); // period:
 																										// 1
 																										// day
 
