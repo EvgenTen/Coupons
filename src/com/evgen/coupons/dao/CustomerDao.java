@@ -10,10 +10,10 @@ import com.evgen.coupons.beans.Company;
 import com.evgen.coupons.beans.Customer;
 import com.evgen.coupons.enums.ErrorType;
 import com.evgen.coupons.exceptions.ApplicationException;
-import com.evgen.coupons.interfaces.dao.iCustomerDao;
+import com.evgen.coupons.interfaces.dao.ICustomerDao;
 import com.evgen.coupons.utils.JdbcUtils;
 
-public class CustomerDao extends JdbcUtils implements iCustomerDao {
+public class CustomerDao extends JdbcUtils implements ICustomerDao {
 	PreparedStatement statement = null;
 	Connection connection = null;
 	ResultSet resultSet = null;

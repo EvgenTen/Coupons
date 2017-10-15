@@ -4,7 +4,7 @@ import java.util.List;
 import com.evgen.coupons.beans.Customer;
 import com.evgen.coupons.exceptions.ApplicationException;
 
-public interface iCustomerDao {
+public interface ICustomerDao {
 
 	 //create
 	 void customerCreate(Customer customer) throws ApplicationException;
@@ -18,7 +18,7 @@ public interface iCustomerDao {
 	 
 	Customer customerGetById(Long id) throws ApplicationException;
 	
-	boolean login(String customerName, String vustomerPassword) throws ApplicationException;
+	boolean login(String customerName, String customerPassword) throws ApplicationException;
 	
 	
 	

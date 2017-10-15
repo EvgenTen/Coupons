@@ -12,7 +12,7 @@ public enum ErrorType {
 	UNABLE_TO_RETREIVE_COUPONS_BY_TYPE("Unable to retreive coupons by type"),
 
 	USER_ERROR ("User doesn`t exist"),
-//	GENERAL_ERROR,
+	LOGIN_FAILED ("Login failed"),
 	
 	COMPANY_CREATE_ERROR ("Unable create company"),
 	COMPANY_DELETE_ERROR ("Unable delete company"),
@@ -27,8 +27,14 @@ public enum ErrorType {
 	UNABLE_TO_RETREIVE_ALL_CUSTOMERS("Unable to retreive list of all customers"),
 	CUSTOMER_RETREIVE_ERROR ("Unable retreive user"),
 	WRONG_CUSTOMER_NAME_OR_DOESNT_EXIST ("Wrong customer name or customer does not exist"),
+	
+	JOIN_COUPON_CREATE_ERROR ("Join coupon create error"),
+	JOIN_COUPON_DELETE_ERROR ("Join coupon delete error"),
+	
 	DATABASE_CONNECTION_ERROR ("Unable to connect to database"),
 	DATABASE_CONNECTION_CLOSING_ERROR ("Unable disconnect from database"),
+	
+	CAN_NOT_PURCHASE_THIS_COUPON("Can't Purchase This Coupon"),
 	
 	SCHEDULE_ERROR ("Scheduled removing error"),
 	

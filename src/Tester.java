@@ -68,8 +68,9 @@ public class Tester {
 //	    	System.out.println("company " + isComExist);
 	    	
 //Customer Login:
-//	    	boolean isCustomerExist = customerDao.login("John", "123");
-//	    	System.out.println("Customer  " + isCustomerExist);
+	    	
+	    	boolean isCustomerExist = customerDao.login("John", "123");
+	    	System.out.println("Customer  " + isCustomerExist);
 	    	
 	    	
 	    	
