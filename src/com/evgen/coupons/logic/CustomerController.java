@@ -23,20 +23,14 @@ public class CustomerController implements IClientController {
 	}
 
 	public boolean login(String custName, String password, ClientType clientType) throws ApplicationException {
+		
+		return customerDao.login(custName, password);
 
-		if (clientType.equals(clientType.CUSTOMER)) {
-
-			boolean isCustomerExist = customerDao.login(custName, password);
-			if (isCustomerExist) {
-				return true;
-			}
-		}
-		return false;
 	}
 
-	public boolean purchaseCoupon(Coupon coupon) throws ApplicationException {
+	public boolean purchaseCoupon(long userId, long couponId) throws ApplicationException {
 
-		if (couponsDao.couponGetById(coupon.getId()) != null
+		if (couponsDao.couponGetById(couponId) != null
 				&& couponsDao.couponGetByCustomer(customer.getId()) == null) {
 
 			joinTable.JoinCouponCreate(coupon.getId(), customer.getId());

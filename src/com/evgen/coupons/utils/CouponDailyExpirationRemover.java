@@ -25,6 +25,7 @@ public class CouponDailyExpirationRemover extends TimerTask implements Runnable 
 			try {
 				throw new ApplicationException(e, ErrorType.SCHEDULE_ERROR);
 			} catch (ApplicationException e1) {
+				System.err.println("Scheduler error");
 				e1.printStackTrace();
 			}
 		}
@@ -41,7 +42,7 @@ public class CouponDailyExpirationRemover extends TimerTask implements Runnable 
 
 		// every night at 1am run remover
 		Timer timer = new Timer();
-		timer.schedule(new CouponDailyExpirationRemover(), today.getTime(), TimeUnit.MILLISECONDS.convert(1, TimeUnit.MINUTES)); // period:
+		timer.schedule(new CouponDailyExpirationRemover(), today.getTime(), TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)); // period:
 																										// 1
 																										// day
 
