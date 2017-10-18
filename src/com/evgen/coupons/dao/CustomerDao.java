@@ -19,7 +19,7 @@ public class CustomerDao extends JdbcUtils implements ICustomerDao {
 	ResultSet resultSet = null;
 	
 	@Override
-	public void customerCreate(Customer customer) throws ApplicationException {
+	public void createCustomer(Customer customer) throws ApplicationException {
 
 		String query = "INSERT INTO CUSTOMER (ID, CUST_NAME, PASSWORD) " + "VALUES(?, ?, ?)";
 
@@ -69,7 +69,7 @@ public class CustomerDao extends JdbcUtils implements ICustomerDao {
 	}
 
 	@Override
-	public Customer customerGetById(Long id) throws ApplicationException {
+	public Customer getCustomerById(Long id) throws ApplicationException {
 
 		String query = "SELECT * FROM CUSTOMER WHERE ID=" + id;
 
@@ -93,7 +93,7 @@ public class CustomerDao extends JdbcUtils implements ICustomerDao {
 	}
 
 	@Override
-	public void customerUpdate(Customer customer) throws ApplicationException {
+	public void updateCustomer(Customer customer) throws ApplicationException {
 
 		String query = "UPDATE CUSTOMER SET CUST_NAME=?, PASSWORD=? WHERE ID=?";
 
@@ -115,7 +115,7 @@ public class CustomerDao extends JdbcUtils implements ICustomerDao {
 	}
 
 	@Override
-	public void customerDeleteById(Customer customer) throws ApplicationException {
+	public void deleteCustomerById(Customer customer) throws ApplicationException {
 		String query = "DELETE FROM CUSTOMER WHERE ID=?";
 		
 		try {

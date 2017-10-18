@@ -19,7 +19,7 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 	ResultSet resultSet = null;
 
 	@Override
-	public void couponCreate(Coupon coupon) throws ApplicationException {
+	public void creteCoupon(Coupon coupon) throws ApplicationException {
 
 		String query = "INSERT INTO COUPON (ID, TITLE, START_DATE, END_DATE, AMOUNT, TYPE, MESSAGE, PRICE, IMAGE, COMP_ID) "
 				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -84,7 +84,7 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 	}
 
 	@Override
-	public Coupon couponGetById(Long id) throws ApplicationException {
+	public Coupon getCouponById(Long id) throws ApplicationException {
 
 		String query = "SELECT * FROM COUPON WHERE ID=" + id;
 
@@ -115,7 +115,7 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 	}
 
 	@Override
-	public void couponUpdate(Coupon coupon) throws ApplicationException {
+	public void updateCoupon(Coupon coupon) throws ApplicationException {
 
 		String query = "UPDATE COUPON SET TITLE=?, START_DATE=?, END_DATE=?, AMOUNT=?, TYPE=?, MESSAGE=?, PRICE=?, IMAGE=?, COMP_ID=? WHERE ID=?";
 		   
@@ -145,7 +145,7 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 	}
 
 	@Override
-	public void couponDeleteById(Coupon coupon) throws ApplicationException {
+	public void deleteCouponById(Coupon coupon) throws ApplicationException {
 
 		String query = "DELETE FROM COUPON WHERE ID=?";
 
@@ -163,7 +163,7 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 	}
 
 	@Override
-	public List<Coupon> couponGetByType(CouponType couponType) throws ApplicationException {
+	public List<Coupon> getCouponsByType(CouponType couponType) throws ApplicationException {
 		List<Coupon> couponGetByType = new ArrayList<>();
 	
 		String query = "SELECT * FROM COUPON WHERE TYPE = ?";
@@ -195,7 +195,7 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 	}
 
 	@Override
-	public List<Coupon> couponGetByCompany(long companyId) throws ApplicationException {
+	public List<Coupon> getCouponsByCompany(long companyId) throws ApplicationException {
 		
 		List<Coupon> couponGetByCompany = new ArrayList<>();
 		String query = "SELECT * FROM COUPON WHERE COMP_ID=" + companyId;
@@ -226,7 +226,7 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 	}
 
 	@Override
-	public List<Coupon> couponGetByCustomer(long customerId) throws ApplicationException {
+	public List<Coupon> getCouponsByCustomer(long customerId) throws ApplicationException {
 		List<Coupon> couponGetByCustomer = new ArrayList<>();
 		String query = "SELECT * FROM COUPON WHERE ID IN (SELECT COUPON_ID FROM CUSTOMER_COUPON WHERE CUST_ID =?)" ;
 		try {
@@ -258,7 +258,7 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 	}
 
 	@Override
-	public void couponDeleteExpired(String date) throws ApplicationException {
+	public void deleteExpiredCoupons(String date) throws ApplicationException {
 		
 		String query = "DELETE FROM coupon WHERE (STR_TO_DATE (END_DATE,'%d.%m.%Y') <= STR_TO_DATE (?,'%d.%m.%Y'))";
 		try {
@@ -273,6 +273,44 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 			JdbcUtils.closeResources(connection, statement);
 		}
 	}
+	
+	public void createCouponInJoinedTable(Long customerId, Long couponId) throws ApplicationException {
+
+		String query = "INSERT INTO customer_coupon (COUPON_ID, CUST_ID) " + "VALUES(?, ?)";
+
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement(query);
+
+			statement.setLong(1, customerId);
+			statement.setLong(2, couponId);
+			
+			statement.executeUpdate();
+			
+		} catch (Exception e) {
+			throw new ApplicationException(e, ErrorType.JOIN_COUPON_CREATE_ERROR);
+
+		} finally {
+			JdbcUtils.closeResources(connection, statement);
+		}
+	}
+	
+	public void deleteCouponInJoinedTable(Long couponId) throws ApplicationException {
+		String query = "DELETE FROM customer_coupon WHERE COUPON_ID=?";
+		
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement(query);
+			statement.setLong(1, couponId);
+			statement.executeUpdate();
+			
+		} catch (Exception e) {
+			throw  new ApplicationException(e, ErrorType.JOIN_COUPON_DELETE_ERROR); 
+		} finally {
+			JdbcUtils.closeResources(connection, statement);
+		}
+	}
+	
 
 
 }

@@ -8,23 +8,23 @@ import com.evgen.coupons.exceptions.ApplicationException;
 public interface ICouponsDao {
 
 	 //create
-	 void couponCreate(Coupon Coupon) throws ApplicationException;
+	 void creteCoupon(Coupon Coupon) throws ApplicationException;
 	 //delete
-	 void couponDeleteById(Coupon coupon) throws ApplicationException;
+	 void deleteCouponById(Coupon coupon) throws ApplicationException;
 	 //update
-	 void couponUpdate(Coupon coupon) throws ApplicationException;
+	 void updateCoupon(Coupon coupon) throws ApplicationException;
 
 	//collection get
 	 List<Coupon> getAllCoupons()throws ApplicationException;
 	 
-	 Coupon couponGetById(Long id)throws ApplicationException;
+	 Coupon getCouponById(Long id)throws ApplicationException;
 	 
-	 List<Coupon> couponGetByType(CouponType couponType) throws ApplicationException;
+	 List<Coupon> getCouponsByType(CouponType couponType) throws ApplicationException;
 	 
-	 List<Coupon> couponGetByCompany(long companyId) throws ApplicationException;
+	 List<Coupon> getCouponsByCompany(long companyId) throws ApplicationException;
 	 
-	 List<Coupon> couponGetByCustomer(long customerId) throws ApplicationException;
+	 List<Coupon> getCouponsByCustomer(long customerId) throws ApplicationException;
 	 
-	 void couponDeleteExpired(String date) throws ApplicationException;
+	 void deleteExpiredCoupons(String date) throws ApplicationException;
 	
 }

@@ -7,16 +7,16 @@ import com.evgen.coupons.exceptions.ApplicationException;
 public interface ICustomerDao {
 
 	 //create
-	 void customerCreate(Customer customer) throws ApplicationException;
+	 void createCustomer(Customer customer) throws ApplicationException;
 	 //delete
-	 abstract void customerDeleteById(Customer customer) throws ApplicationException;
+	 abstract void deleteCustomerById(Customer customer) throws ApplicationException;
 	 //update
-	 void customerUpdate(Customer customer) throws ApplicationException;
+	 void updateCustomer(Customer customer) throws ApplicationException;
 
 	//collection read
 	 List<Customer> getAllCustomers() throws ApplicationException;
 	 
-	Customer customerGetById(Long id) throws ApplicationException;
+	Customer getCustomerById(Long id) throws ApplicationException;
 	
 	boolean login(String customerName, String customerPassword) throws ApplicationException;
 	

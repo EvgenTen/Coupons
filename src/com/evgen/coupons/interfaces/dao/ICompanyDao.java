@@ -6,16 +6,16 @@ import com.evgen.coupons.exceptions.ApplicationException;
 
 public interface ICompanyDao {
 	 //create
-	 void companyCreate(Company company) throws ApplicationException;
+	 void createCompany(Company company) throws ApplicationException;
 	 //delete
-	 void companyDeleteById(Company company) throws ApplicationException;
+	 void deleteCompanyById(Company company) throws ApplicationException;
 	 //update
-	 void companyUpdate(Company company) throws ApplicationException;
+	 void updateCompany(Company company) throws ApplicationException;
 
 	//collection read
 	 List<Company> getAllCompanies() throws ApplicationException;
 	 
-	 Company companyGetById(Long id) throws ApplicationException;
+	 Company getCompanyById(Long id) throws ApplicationException;
 
 	 boolean login(String companyName, String companyPassword) throws ApplicationException;
 } 

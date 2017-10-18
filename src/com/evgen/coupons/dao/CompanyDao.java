@@ -17,7 +17,7 @@ public class CompanyDao extends JdbcUtils implements ICompanyDao {
 	ResultSet resultSet = null;
 
 	@Override
-	public void companyCreate(Company company) throws ApplicationException {
+	public void createCompany(Company company) throws ApplicationException {
 
 		String query = "INSERT INTO COMPANY (ID, COMP_NAME, PASSWORD, EMAIL) " + "VALUES(?, ?, ?, ?)";
 
@@ -68,7 +68,7 @@ public class CompanyDao extends JdbcUtils implements ICompanyDao {
 	}
 
 	@Override
-	public Company companyGetById(Long id) throws ApplicationException {
+	public Company getCompanyById(Long id) throws ApplicationException {
 
 		String query = "SELECT * FROM COMPANY WHERE ID=" + id;
 
@@ -94,7 +94,7 @@ public class CompanyDao extends JdbcUtils implements ICompanyDao {
 	}
 
 	@Override
-	public void companyUpdate(Company company) throws ApplicationException {
+	public void updateCompany(Company company) throws ApplicationException {
 
 		String query = "UPDATE COMPANY SET COMP_NAME=?, PASSWORD=?, EMAIL=?  WHERE ID=?";
 
@@ -117,7 +117,7 @@ public class CompanyDao extends JdbcUtils implements ICompanyDao {
 	}
 
 	@Override
-	public void companyDeleteById(Company company) throws ApplicationException {
+	public void deleteCompanyById(Company company) throws ApplicationException {
 		
 		String query = "DELETE FROM COMPANY WHERE ID=?";
 

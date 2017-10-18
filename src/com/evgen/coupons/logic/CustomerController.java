@@ -1,21 +1,17 @@
 package com.evgen.coupons.logic;
 
-import com.evgen.coupons.beans.Coupon;
 import com.evgen.coupons.beans.Customer;
 import com.evgen.coupons.dao.CompanyDao;
 import com.evgen.coupons.dao.CouponsDao;
 import com.evgen.coupons.dao.CustomerDao;
-import com.evgen.coupons.dao.JoinedCustomerCoupon;
 import com.evgen.coupons.enums.ClientType;
-import com.evgen.coupons.enums.ErrorType;
 import com.evgen.coupons.exceptions.ApplicationException;
 
 public class CustomerController implements IClientController {
 	CustomerDao customerDao = new CustomerDao();
 	CouponsDao couponsDao = new CouponsDao();
 	CompanyDao companyDao = new CompanyDao();
-	JoinedCustomerCoupon joinTable = new JoinedCustomerCoupon();
-
+	
 	private Customer customer;
 
 	public CustomerController(Customer customer) {
@@ -28,15 +24,17 @@ public class CustomerController implements IClientController {
 
 	}
 
-	public boolean purchaseCoupon(long userId, long couponId) throws ApplicationException {
+	public boolean isAvailablePurchaseCoupon(long userId, long couponId) throws ApplicationException {
 
-		if (couponsDao.couponGetById(couponId) != null
-				&& couponsDao.couponGetByCustomer(customer.getId()) == null) {
+		if (couponsDao.getCouponById(couponId) != null
+				&& couponsDao.getCouponsByCustomer(customer.getId()) == null) {
 
-			joinTable.JoinCouponCreate(coupon.getId(), customer.getId());
+			couponsDao.createCouponInJoinedTable(couponId, userId);
 			return true;
 
 		}
 		return false;
 	}
+	
+	
 }
