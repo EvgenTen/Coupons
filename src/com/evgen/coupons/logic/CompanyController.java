@@ -29,7 +29,7 @@ public class CompanyController {
 	public boolean isAvailablePurchaseCoupon(long userId, long couponId) throws ApplicationException {
 
 		if (couponsDao.getCouponById(couponId) != null
-				&& couponsDao.getCouponsByCustomer(customer.getId()) == null) {
+				&& couponsDao.getCouponsByCustomer(company.getId()) == null) {
 
 			couponsDao.createCouponInJoinedTable(couponId, userId);
 			return true;
