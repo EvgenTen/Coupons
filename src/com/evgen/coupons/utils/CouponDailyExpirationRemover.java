@@ -20,7 +20,7 @@ public class CouponDailyExpirationRemover extends TimerTask implements Runnable 
 		String formattedString = localDate.format(formatter);		
 		String date = formattedString;
 		try {
-			couponsDao.couponDeleteExpired(date);
+			couponsDao.deleteExpiredCoupons(date);
 		} catch (ApplicationException e) {
 			try {
 				throw new ApplicationException(e, ErrorType.SCHEDULE_ERROR);
