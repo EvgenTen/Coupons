@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.evgen.coupons.beans.Company;
+import com.evgen.coupons.beans.Coupon;
 import com.evgen.coupons.beans.Customer;
 import com.evgen.coupons.enums.ErrorType;
 import com.evgen.coupons.exceptions.ApplicationException;
@@ -92,6 +93,28 @@ public class CustomerDao extends JdbcUtils implements ICustomerDao {
 		return customer;
 	}
 
+	public Customer getCustomerByName(String name) throws ApplicationException {
+
+		String query = "SELECT * FROM CUSTOMER WHERE CUST_NAME=" + name;
+
+		Customer customer = new Customer();
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement(query);
+			resultSet = statement.executeQuery();
+			resultSet.next();
+
+			customer.setId(resultSet.getLong("ID"));
+			customer.setCustomerName(resultSet.getString("CUST_NAME"));
+			customer.setPassword(resultSet.getString("PASSWORD"));
+
+		} catch (Exception e) {
+			throw  new ApplicationException(e, ErrorType.CUSTOMER_RETREIVE_ERROR); 
+		} finally {
+			JdbcUtils.closeResources(connection, statement, resultSet);
+		}
+		return customer;
+	}
 	@Override
 	public void updateCustomer(Customer customer) throws ApplicationException {
 
@@ -147,7 +170,7 @@ public class CustomerDao extends JdbcUtils implements ICustomerDao {
 			customer.setPassword(resultSet.getString("PASSWORD"));
 
 			if (!customerName.equals(customer.getCustomerName())  && !customerPassword.equals(customer.getPassword())) {
-				System.out.println("Login or password incorrect");
+				
 				return false;
 			} else return true;
 			
@@ -157,4 +180,55 @@ public class CustomerDao extends JdbcUtils implements ICustomerDao {
 			JdbcUtils.closeResources(connection, statement, resultSet);
 		}
 	}
+	
+	public boolean isCustomerExistByName(String customerName) throws ApplicationException {
+
+		String query = "SELECT CUST_NAME FROM CUSTOMER WHERE CUST_NAME=" + customerName;
+
+//		Customer customer = new Customer();
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement(query);
+			resultSet = statement.executeQuery();
+			resultSet.next();
+
+		//	customer.setCustomerName(resultSet.getString("CUST_NAME"));
+
+
+			if(!resultSet.next()) {
+				return false;
+			}
+			return true;
+			
+		} catch (Exception e) {
+			throw  new ApplicationException(e, ErrorType.WRONG_CUSTOMER_NAME_OR_DOESNT_EXIST); 
+		} finally {
+			JdbcUtils.closeResources(connection, statement, resultSet);
+		}
+	
+	}
+	
+	public boolean isCustomerExistById(Long id) throws ApplicationException {
+
+		String query = "SELECT ID FROM CUSTOMER WHERE ID=" + id;
+
+//		Coupon coupon = new Coupon();
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement(query);
+			resultSet = statement.executeQuery();
+			resultSet.next();
+			statement.executeQuery();
+
+			if(!resultSet.next()) {
+				return false;
+			}
+			return true;
+		} catch (Exception e) {
+			throw new ApplicationException(e, ErrorType.WRONG_CUSTOMER_NAME_OR_DOESNT_EXIST);
+		} finally {
+			JdbcUtils.closeResources(connection, statement, resultSet);
+		}
+}
+	
 }

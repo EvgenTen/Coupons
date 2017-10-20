@@ -311,6 +311,29 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 		}
 	}
 	
+	public boolean isCouponExistById(Long id) throws ApplicationException {
+
+		String query = "SELECT ID FROM COUPON WHERE ID=" + id;
+
+		
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement(query);
+			resultSet = statement.executeQuery();
+			resultSet.next();
+			statement.executeQuery();
+
+			if(!resultSet.next()) {
+				return false;
+			}
+			return true;
+		} catch (Exception e) {
+			throw new ApplicationException(e, ErrorType.WRONG_COUPON_OR_DOESNT_EXIST);
+		} finally {
+			JdbcUtils.closeResources(connection, statement, resultSet);
+		}
+		
+	}
 
 
 }
