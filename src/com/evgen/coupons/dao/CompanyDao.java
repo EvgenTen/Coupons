@@ -93,6 +93,30 @@ public class CompanyDao extends JdbcUtils implements ICompanyDao {
 		return company;
 	}
 
+	public Company getCompanyByName(String companyName) throws ApplicationException {
+
+		String query = "SELECT * FROM COMPANY WHERE COMP_NAME=" + companyName;
+
+		Company company = new Company();
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement(query);
+			resultSet = statement.executeQuery();
+			resultSet.next();
+			
+			company.setId(resultSet.getLong("ID"));
+			company.setCompanyName(resultSet.getString("COMP_NAME"));
+			company.setPassword(resultSet.getString("PASSWORD"));
+			company.setEmail(resultSet.getString("EMAIL"));
+
+			
+		} catch (Exception e) {
+			throw new ApplicationException(e, ErrorType.COMPANY_RETREIVE_ERROR);
+		} finally {
+			JdbcUtils.closeResources(connection, statement, resultSet);
+		}
+		return company;
+	}
 	@Override
 	public void updateCompany(Company company) throws ApplicationException {
 
@@ -133,6 +157,53 @@ public class CompanyDao extends JdbcUtils implements ICompanyDao {
 			JdbcUtils.closeResources(connection, statement);
 		}
 	}
+	
+	public boolean isCompanyExistByName(String companyName) throws ApplicationException {
+
+		String query = "SELECT COMP_NAME FROM COMPANY WHERE COMP_NAME=" + companyName;
+
+
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement(query);
+			resultSet = statement.executeQuery();
+			resultSet.next();
+
+			if(!resultSet.next()) {
+				return false;
+			}
+			return true;
+			
+		} catch (Exception e) {
+			throw  new ApplicationException(e, ErrorType.WRONG_COMPANY_NAME_OR_DOESNT_EXIST); 
+		} finally {
+			JdbcUtils.closeResources(connection, statement, resultSet);
+		}
+	
+	}
+
+	public boolean isCompanyExistById(Long id) throws ApplicationException {
+
+		String query = "SELECT ID FROM COMPANY WHERE ID=" + id;
+
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement(query);
+			resultSet = statement.executeQuery();
+			resultSet.next();
+			statement.executeQuery();
+
+			if(!resultSet.next()) {
+				return false;
+			}
+			return true;
+		} catch (Exception e) {
+			throw new ApplicationException(e, ErrorType.WRONG_COMPANY_NAME_OR_DOESNT_EXIST);
+		} finally {
+			JdbcUtils.closeResources(connection, statement, resultSet);
+		}
+}
+
 
 	@Override
 	public boolean login(String companyName, String companyPassword) throws ApplicationException {

@@ -115,6 +115,7 @@ public class CustomerDao extends JdbcUtils implements ICustomerDao {
 		}
 		return customer;
 	}
+	
 	@Override
 	public void updateCustomer(Customer customer) throws ApplicationException {
 

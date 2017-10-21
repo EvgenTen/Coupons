@@ -1,5 +1,7 @@
 package com.evgen.coupons.logic;
 
+import java.util.List;
+
 import com.evgen.coupons.beans.Company;
 import com.evgen.coupons.beans.Customer;
 import com.evgen.coupons.dao.CompanyDao;
@@ -20,22 +22,43 @@ public class CompanyController {
 		this.company = company;
 	}
 
-	public boolean login(String custName, String password, ClientType clientType) throws ApplicationException {
+	public boolean login(String custName, String password) throws ApplicationException {
 		
-		return customerDao.login(custName, password);
+		return companyDao.login(custName, password);
 
 	}
+	
+	public void createCompany(Company company) throws ApplicationException{
 
-	public boolean isAvailablePurchaseCoupon(long userId, long couponId) throws ApplicationException {
+		if (companyDao.isCompanyExistByName(company.getCompanyName()) != true && companyDao.isCompanyExistById(company.getId()) != true)
+			companyDao.createCompany(company);
+	}
+	
+	public void deleteCompany(long companyID) throws ApplicationException{
+		if (companyDao.isCompanyExistById(companyID))
+			company.setId(companyID);
+		companyDao.deleteCompanyById(company);
+	}
+	
+	public void updateCompany(Company company) throws ApplicationException{
+		if (companyDao.isCompanyExistById(company.getId()))
+			companyDao.updateCompany(company);
+	}
+	
+	public Company getCompanybyID(long companyID) throws ApplicationException {
+		if (companyDao.isCompanyExistById(company.getId())) {
+			
+		}return companyDao.getCompanyById(companyID);
+	}
+		
+	public Company getCompanybyName(String companyName) throws ApplicationException {
+		if (companyDao.isCompanyExistByName(companyName)) {
+			
+		}return companyDao.getCompanyByName(companyName);
+	}
 
-		if (couponsDao.getCouponById(couponId) != null
-				&& couponsDao.getCouponsByCustomer(company.getId()) == null) {
-
-			couponsDao.createCouponInJoinedTable(couponId, userId);
-			return true;
-
-		}
-		return false;
+	public List<Company> getAllCompanies() throws ApplicationException {
+		return companyDao.getAllCompanies();
 	}
 	
 	
