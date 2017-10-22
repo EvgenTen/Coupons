@@ -11,7 +11,8 @@ public enum ErrorType {
 	UNABLE_TO_RETREIVE_COUPONS_BY_CUSTOMER("Unable to retreive coupons by customer"),
 	UNABLE_TO_RETREIVE_COUPONS_BY_TYPE("Unable to retreive coupons by type"),
 	WRONG_COUPON_OR_DOESNT_EXIST ("Wrong coupon name or company does not exist"),
-
+	COUPON_ALREADY_EXIST ("Coupon already exist"),
+	
 	USER_ERROR ("User doesn`t exist"),
 	LOGIN_FAILED ("Login failed"),
 	

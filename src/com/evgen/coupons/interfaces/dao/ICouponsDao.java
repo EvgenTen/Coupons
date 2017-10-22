@@ -8,7 +8,7 @@ import com.evgen.coupons.exceptions.ApplicationException;
 public interface ICouponsDao {
 
 	 //create
-	 void creteCoupon(Coupon Coupon) throws ApplicationException;
+	 void createCoupon(Coupon Coupon) throws ApplicationException;
 	 //delete
 	 void deleteCouponById(Coupon coupon) throws ApplicationException;
 	 //update

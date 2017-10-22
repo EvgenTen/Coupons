@@ -17,9 +17,10 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 	PreparedStatement statement = null;
 	Connection connection = null;
 	ResultSet resultSet = null;
-
+	
 	@Override
-	public void creteCoupon(Coupon coupon) throws ApplicationException {
+	
+	public void createCoupon(Coupon coupon) throws ApplicationException {
 
 		String query = "INSERT INTO COUPON (ID, TITLE, START_DATE, END_DATE, AMOUNT, TYPE, MESSAGE, PRICE, IMAGE, COMP_ID) "
 				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -161,6 +162,23 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 			JdbcUtils.closeResources(connection, statement);
 		}
 	}
+	
+	public void deleteCouponByCompanyId(Coupon coupon) throws ApplicationException {
+
+		String query = "DELETE FROM COUPON WHERE COMP_ID=";
+
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement(query);
+			statement.setLong(1, coupon.getCompanyId());
+			statement.executeUpdate();
+
+		} catch (Exception e) {
+			throw new ApplicationException(e, ErrorType.COUPON_DELETE_ERROR);
+		} finally {
+			JdbcUtils.closeResources(connection, statement);
+		}
+	}
 
 	@Override
 	public List<Coupon> getCouponsByType(CouponType couponType) throws ApplicationException {
@@ -290,6 +308,23 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 		} catch (Exception e) {
 			throw new ApplicationException(e, ErrorType.JOIN_COUPON_CREATE_ERROR);
 
+		} finally {
+			JdbcUtils.closeResources(connection, statement);
+		}
+	}
+	
+	public void deleteCouponInJoinedTableByCustomerId(Long customerId) throws ApplicationException {
+
+		String query = "DELETE FROM customer_coupon WHERE CUST_ID=?";
+		
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement(query);
+			statement.setLong(1, customerId);
+			statement.executeUpdate();
+			
+		} catch (Exception e) {
+			throw  new ApplicationException(e, ErrorType.JOIN_COUPON_DELETE_ERROR); 
 		} finally {
 			JdbcUtils.closeResources(connection, statement);
 		}

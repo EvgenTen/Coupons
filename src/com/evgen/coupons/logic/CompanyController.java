@@ -3,6 +3,7 @@ package com.evgen.coupons.logic;
 import java.util.List;
 
 import com.evgen.coupons.beans.Company;
+import com.evgen.coupons.beans.Coupon;
 import com.evgen.coupons.beans.Customer;
 import com.evgen.coupons.dao.CompanyDao;
 import com.evgen.coupons.dao.CouponsDao;
@@ -17,9 +18,12 @@ public class CompanyController {
 	CompanyDao companyDao = new CompanyDao();
 	
 	private Company company;
-
+	private Coupon coupon;
 	public CompanyController(Company company) {
 		this.company = company;
+	}
+	public CompanyController(Coupon coupon) {
+		this.coupon = coupon;
 	}
 
 	public boolean login(String custName, String password) throws ApplicationException {
@@ -37,6 +41,8 @@ public class CompanyController {
 	public void deleteCompany(long companyID) throws ApplicationException{
 		if (companyDao.isCompanyExistById(companyID))
 			company.setId(companyID);
+		    coupon.setCompanyId(companyID);
+			couponsDao.deleteCouponByCompanyId(coupon);
 		companyDao.deleteCompanyById(company);
 	}
 	
