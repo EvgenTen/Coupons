@@ -1,3 +1,8 @@
+/*
+ * This class shows kinds of clients 
+ * 
+ */
+
 package com.evgen.coupons.enums;
 
 public enum ClientType {

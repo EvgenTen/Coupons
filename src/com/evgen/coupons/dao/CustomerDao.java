@@ -1,3 +1,8 @@
+/*
+ * This class is DAO Customer class
+ * works with customer table in DB
+ * receive parameters from controller layer
+*/
 package com.evgen.coupons.dao;
 
 import java.sql.Connection;
@@ -5,9 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.evgen.coupons.beans.Company;
-import com.evgen.coupons.beans.Coupon;
 import com.evgen.coupons.beans.Customer;
 import com.evgen.coupons.enums.ErrorType;
 import com.evgen.coupons.exceptions.ApplicationException;
@@ -15,10 +17,13 @@ import com.evgen.coupons.interfaces.dao.ICustomerDao;
 import com.evgen.coupons.utils.JdbcUtils;
 
 public class CustomerDao extends JdbcUtils implements ICustomerDao {
-	PreparedStatement statement = null;
-	Connection connection = null;
-	ResultSet resultSet = null;
+	PreparedStatement statement = null; // Must be equal to NULL because resources
+	Connection connection = null; // will be closed in JDBC after check.
+	ResultSet resultSet = null;//
 	
+	/*
+	 * This method creates customer with given values in Customer table
+	 */
 	@Override
 	public void createCustomer(Customer customer) throws ApplicationException {
 
@@ -35,13 +40,15 @@ public class CustomerDao extends JdbcUtils implements ICustomerDao {
 			statement.executeUpdate();
 			
 		} catch (Exception e) {
-			throw new ApplicationException(e, ErrorType.CUSTOMER_CREATE_ERROR);
+			throw new ApplicationException(e, ErrorType.CUSTOMER_CREATE_ERROR); // Must be in try/catch then throw custom exception
 
 		} finally {
-			JdbcUtils.closeResources(connection, statement);
+			JdbcUtils.closeResources(connection, statement); // Closing resources
 		}
 	}
-
+	/*
+	 * This method receive List of customers from DB returns customers List
+	 */
 	@Override
 	public List<Customer> getAllCustomers() throws ApplicationException {
 		List<Customer> customerList = new ArrayList<>();
@@ -68,7 +75,9 @@ public class CustomerDao extends JdbcUtils implements ICustomerDao {
 		}
 		return customerList;
 	}
-
+	/*
+	 * This method receive customer by ID from DB returns customer
+	 */
 	@Override
 	public Customer getCustomerById(Long id) throws ApplicationException {
 
@@ -92,7 +101,10 @@ public class CustomerDao extends JdbcUtils implements ICustomerDao {
 		}
 		return customer;
 	}
-
+	/*
+	 * This method receive customer by Name from DB returns customer
+	 */
+	@Override
 	public Customer getCustomerByName(String name) throws ApplicationException {
 
 		String query = "SELECT * FROM CUSTOMER WHERE CUST_NAME=" + name;
@@ -115,7 +127,9 @@ public class CustomerDao extends JdbcUtils implements ICustomerDao {
 		}
 		return customer;
 	}
-	
+	/*
+	 * This method updates customer in DB with given values
+	 */
 	@Override
 	public void updateCustomer(Customer customer) throws ApplicationException {
 
@@ -137,7 +151,9 @@ public class CustomerDao extends JdbcUtils implements ICustomerDao {
 			JdbcUtils.closeResources(connection, statement);
 		}
 	}
-
+	/*
+	 * This method delete customer from DB by ID
+	 */
 	@Override
 	public void deleteCustomerById(Customer customer) throws ApplicationException {
 		String query = "DELETE FROM CUSTOMER WHERE ID=?";
@@ -154,7 +170,10 @@ public class CustomerDao extends JdbcUtils implements ICustomerDao {
 			JdbcUtils.closeResources(connection, statement);
 		}
 	}
-
+	/*This method provide login for customers 
+	 * using customer name and password
+	 * return true or false
+	 * */
 	@Override
 	public boolean login(String customerName, String customerPassword) throws ApplicationException {
 		String query = "SELECT CUST_NAME, PASSWORD FROM CUSTOMER WHERE CUST_NAME = ?";
@@ -181,19 +200,20 @@ public class CustomerDao extends JdbcUtils implements ICustomerDao {
 			JdbcUtils.closeResources(connection, statement, resultSet);
 		}
 	}
-	
+	/*
+	 * This method check if customer exist in DB by NAME
+	 */
+	@Override
 	public boolean isCustomerExistByName(String customerName) throws ApplicationException {
 
 		String query = "SELECT CUST_NAME FROM CUSTOMER WHERE CUST_NAME=" + customerName;
 
-//		Customer customer = new Customer();
+
 		try {
 			connection = getConnection();
 			statement = connection.prepareStatement(query);
 			resultSet = statement.executeQuery();
 			resultSet.next();
-
-		//	customer.setCustomerName(resultSet.getString("CUST_NAME"));
 
 
 			if(!resultSet.next()) {
@@ -208,12 +228,14 @@ public class CustomerDao extends JdbcUtils implements ICustomerDao {
 		}
 	
 	}
-	
+	/*
+	 * This method check if customer exist in DB by ID
+	 */
+	@Override
 	public boolean isCustomerExistById(Long id) throws ApplicationException {
 
 		String query = "SELECT ID FROM CUSTOMER WHERE ID=" + id;
 
-//		Coupon coupon = new Coupon();
 		try {
 			connection = getConnection();
 			statement = connection.prepareStatement(query);

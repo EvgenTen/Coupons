@@ -1,3 +1,9 @@
+/*
+ * The class is own Exception class
+ * that can be thrown. 
+ * The class use its own error type 
+ * exceptions as ENUM`s
+*/
 package com.evgen.coupons.exceptions;
 
 import com.evgen.coupons.enums.ErrorType;

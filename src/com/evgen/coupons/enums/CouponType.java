@@ -1,3 +1,9 @@
+/*
+ * This class shows kinds of coupons types  
+ * that customers can order.
+ * Stored in DB as String
+ */
+
 package com.evgen.coupons.enums;
 
 public enum CouponType {

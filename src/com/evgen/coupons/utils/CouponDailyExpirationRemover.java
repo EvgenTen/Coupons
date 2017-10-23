@@ -1,3 +1,8 @@
+/*
+ * This class works as a different thread
+ * to remove expired coupons from database
+*/
+
 package com.evgen.coupons.utils;
 
 import java.time.LocalDate;
@@ -12,6 +17,9 @@ import com.evgen.coupons.exceptions.ApplicationException;
 
 import java.util.TimerTask;
 
+/*
+ * Class receive and converts date format
+*/
 public class CouponDailyExpirationRemover extends TimerTask implements Runnable  {
 	public void run() {
 		CouponsDao couponsDao = new CouponsDao();
@@ -31,7 +39,11 @@ public class CouponDailyExpirationRemover extends TimerTask implements Runnable 
 		}
 
 	}
-
+/*
+ * Class starts task at scheduled time
+ * in this case every night at 01:00 
+ * 
+ */
 	public static void main(String[] args) {
 
 		Thread remover = new Thread(new CouponDailyExpirationRemover());

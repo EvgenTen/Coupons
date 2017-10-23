@@ -1,3 +1,8 @@
+/*
+ * Class company beans represents entities
+ * with parameters that can be used 
+*/
+
 package com.evgen.coupons.beans;
 
 public class Company {

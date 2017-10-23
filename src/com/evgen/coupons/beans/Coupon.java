@@ -1,3 +1,8 @@
+/*
+ * Class coupons beans represents entities
+ * with parameters that can be used 
+*/
+
 package com.evgen.coupons.beans;
 
 import com.evgen.coupons.enums.CouponType;

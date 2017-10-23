@@ -1,3 +1,8 @@
+/*
+ * This class is DAO Coupons class
+ * works with coupons table in DB
+ * receive parameters from controller layer
+*/
 package com.evgen.coupons.dao;
 
 import java.sql.Connection;
@@ -14,12 +19,14 @@ import com.evgen.coupons.utils.JdbcUtils;
 
 public class CouponsDao extends JdbcUtils implements ICouponsDao {
 
-	PreparedStatement statement = null;
-	Connection connection = null;
-	ResultSet resultSet = null;
+	PreparedStatement statement = null; // Must be equal to NULL because resources
+	Connection connection = null; // will be closed in JDBC after check.
+	ResultSet resultSet = null;//
 	
+	/*
+	 * This method creates coupon with given values in Coupons table
+	 */
 	@Override
-	
 	public void createCoupon(Coupon coupon) throws ApplicationException {
 
 		String query = "INSERT INTO COUPON (ID, TITLE, START_DATE, END_DATE, AMOUNT, TYPE, MESSAGE, PRICE, IMAGE, COMP_ID) "
@@ -43,13 +50,15 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 			statement.executeUpdate();
 
 		} catch (Exception e) {
-			throw new ApplicationException(e, ErrorType.COUPON_CREATE_ERROR);
+			throw new ApplicationException(e, ErrorType.COUPON_CREATE_ERROR); // Must be in try/catch then throw custom exception
 
 		} finally {
-			JdbcUtils.closeResources(connection, statement);
+			JdbcUtils.closeResources(connection, statement); // Closing resources
 		}
 	}
-
+	/*
+	 * This method receive List of coupons from DB returns coupons List
+	 */
 	@Override
 	public List<Coupon> getAllCoupons() throws ApplicationException {
 		List<Coupon> couponList = new ArrayList<>();
@@ -83,7 +92,9 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 		}
 		return couponList;
 	}
-
+	/*
+	 * This method receive coupon by ID from DB returns coupon
+	 */
 	@Override
 	public Coupon getCouponById(Long id) throws ApplicationException {
 
@@ -114,7 +125,9 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 		}
 		return coupon;
 	}
-
+	/*
+	 * This method updates coupon in DB with given values
+	 */
 	@Override
 	public void updateCoupon(Coupon coupon) throws ApplicationException {
 
@@ -144,7 +157,9 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 		}
 
 	}
-
+	/*
+	 * This method delete coupon from DB by ID
+	 */
 	@Override
 	public void deleteCouponById(Coupon coupon) throws ApplicationException {
 
@@ -162,7 +177,10 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 			JdbcUtils.closeResources(connection, statement);
 		}
 	}
-	
+	/*
+	 * This method delete customer from DB by ID
+	 */
+	@Override
 	public void deleteCouponByCompanyId(Coupon coupon) throws ApplicationException {
 
 		String query = "DELETE FROM COUPON WHERE COMP_ID=";
@@ -179,7 +197,9 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 			JdbcUtils.closeResources(connection, statement);
 		}
 	}
-
+	/*
+	 * This method receive list of coupons by TYPE from DB returns coupons
+	 */
 	@Override
 	public List<Coupon> getCouponsByType(CouponType couponType) throws ApplicationException {
 		List<Coupon> couponGetByType = new ArrayList<>();
@@ -211,7 +231,9 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 		}
 		return couponGetByType;
 	}
-
+	/*
+	 * This method receive list of coupons by COMPANY from DB returns coupons
+	 */
 	@Override
 	public List<Coupon> getCouponsByCompany(long companyId) throws ApplicationException {
 		
@@ -242,7 +264,9 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 		}
 		return couponGetByCompany;
 	}
-
+	/*
+	 * This method receive list of coupons by CUSTOMER from DB returns coupons
+	 */
 	@Override
 	public List<Coupon> getCouponsByCustomer(long customerId) throws ApplicationException {
 		List<Coupon> couponGetByCustomer = new ArrayList<>();
@@ -274,7 +298,10 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 		}
 		return couponGetByCustomer;
 	}
-
+	/*
+	 * This method delete expired coupons from DB
+	 * using external scheduled task
+	 */
 	@Override
 	public void deleteExpiredCoupons(String date) throws ApplicationException {
 		
@@ -291,7 +318,11 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 			JdbcUtils.closeResources(connection, statement);
 		}
 	}
-	
+	/*
+	 * This method creates coupons in joined table
+	 * with two parameters
+	 */
+	@Override
 	public void createCouponInJoinedTable(Long customerId, Long couponId) throws ApplicationException {
 
 		String query = "INSERT INTO customer_coupon (COUPON_ID, CUST_ID) " + "VALUES(?, ?)";
@@ -312,7 +343,11 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 			JdbcUtils.closeResources(connection, statement);
 		}
 	}
-	
+	/*
+	 * This method delete coupons from joined table
+	 * by customer ID
+	 */
+	@Override
 	public void deleteCouponInJoinedTableByCustomerId(Long customerId) throws ApplicationException {
 
 		String query = "DELETE FROM customer_coupon WHERE CUST_ID=?";
@@ -329,7 +364,11 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 			JdbcUtils.closeResources(connection, statement);
 		}
 	}
-	
+	/*
+	 * This method delete coupons from joined table
+	 * by customer ID
+	 */
+	@Override
 	public void deleteCouponInJoinedTable(Long couponId) throws ApplicationException {
 		String query = "DELETE FROM customer_coupon WHERE COUPON_ID=?";
 		
@@ -345,7 +384,10 @@ public class CouponsDao extends JdbcUtils implements ICouponsDao {
 			JdbcUtils.closeResources(connection, statement);
 		}
 	}
-	
+	/*
+	 *This method check if coupon exist by ID in DB
+	 */
+	@Override
 	public boolean isCouponExistById(Long id) throws ApplicationException {
 
 		String query = "SELECT ID FROM COUPON WHERE ID=" + id;
