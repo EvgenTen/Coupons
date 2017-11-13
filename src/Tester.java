@@ -28,18 +28,18 @@ public class Tester {
 	    	CompanyDao companyDao = new CompanyDao();
 	    	
 //Coupon Create:
-//      	Coupon couponAdd = new Coupon ();
-//	    	couponAdd.setId(9);
-//			couponAdd.setTitle("5Sta coupon");
-//			couponAdd.setStartDate("15.01.2018");
-//			couponAdd.setEndDate("25.02.2018");
-//			couponAdd.setAmount(100);
-//			couponAdd.setPrice(12.5f);
-//			couponAdd.setType(CouponType.TRAVELLING);
-//			couponAdd.setMessage("Crazy shmul");
-//			couponAdd.setImage("IMAGE");
-//			couponAdd.setCompanyId(7);
-//			couponsDao.couponCreate(couponAdd);
+      	Coupon couponAdd = new Coupon ();
+	    	//couponAdd.setId(7);
+			couponAdd.setTitle("Close example");
+			couponAdd.setStartDate("15.01.2018");
+			couponAdd.setEndDate("25.02.2018");
+			couponAdd.setAmount(100);
+			couponAdd.setPrice(11f);
+			couponAdd.setType(CouponType.TRAVELLING);
+			couponAdd.setMessage("Hello world");
+			couponAdd.setImage("IMAGE");
+			couponAdd.setCompanyId(7);
+			couponsDao.createCoupon(couponAdd);
 //Company Create:	    	
 //	    	JTextField q = new JTextField (5);
 //	    	JTextField w = new JTextField (5);
@@ -69,8 +69,8 @@ public class Tester {
 	    	
 //Customer Login:
 	    	
-	    	boolean isCustomerExist = customerDao.login("John", "123");
-	    	System.out.println("Customer  " + isCustomerExist);
+//	    	boolean isCustomerExist = customerDao.login("John", "123");
+//	    	System.out.println("Customer  " + isCustomerExist);
 	    	
 	    	
 	    	

@@ -22,6 +22,9 @@ public class CouponController {
 	public CouponController(Customer customer) {
 		this.customer = customer;
 	}
+	public CouponController() {
+		
+	}
 
 	// Create Coupon
 	public void createCoupon(Coupon coupon) throws ApplicationException {
