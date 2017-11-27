@@ -19,13 +19,20 @@ import com.evgen.coupons.dao.CouponsDao;
 import com.evgen.coupons.dao.CustomerDao;
 import com.evgen.coupons.enums.CouponType;
 import com.evgen.coupons.exceptions.ApplicationException;
+import com.evgen.coupons.logic.CompanyController;
 
-public class Tester {
+public class LogicTester {
 
 	    public static void main(String[] args) throws SQLException, ApplicationException {
+	    //	CompanyController cc = new CompanyController((long) 2);
+	    	
 	    	CustomerDao customerDao = new CustomerDao();
 	    	CouponsDao couponsDao = new CouponsDao();
 	    	CompanyDao companyDao = new CompanyDao();
+	    	
+//	    	Company company = cc.getCompanybyID(2);
+//	    	
+//	    	System.out.println(company);
 	    	
 //Coupon Create:
 //      	Coupon couponAdd = new Coupon ();
@@ -55,8 +62,8 @@ public class Tester {
 //	 
 //	    	JOptionPane.showConfirmDialog(null, myPanel, "Please enter parameters: " , JOptionPane.OK_CANCEL_OPTION);
 
-	    	Company com = new Company ("Barabashka", "12345", "gdfg@fgfdh.com");
-	    	companyDao.createCompany(com);
+//	    	Company com = new Company ("Barabashka", "12345", "gdfg@fgfdh.com");
+//	    	companyDao.createCompany(com);
 //Customer Create:    	
 //	     	Customer cust = new Customer(5, "Name", "Pass");
 //	    	customerDao.customerCreate(cust);
@@ -145,7 +152,7 @@ public class Tester {
 //           Coupon coupon = couponsDao.couponGetById((long)4);
 //           System.out.println(coupon);
 				
-//		     Company company = companyDao.companyGetById((long)2);
+//		     Company company = companyDao.getCompanyById((long)2);
 //		     System.out.println(company);
 			 
 //			 Customer customer = customerDao.customerGetById((long)3);

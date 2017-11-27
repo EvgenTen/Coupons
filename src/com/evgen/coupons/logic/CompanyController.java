@@ -18,6 +18,8 @@ public class CompanyController {
 	// creating constructor
 	private Company company;
 	private Coupon coupon;
+	public CompanyController(){
+	}
 	public CompanyController(Company company) {
 		this.company = company;
 	}
